@@ -89,6 +89,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="flex-1 bg-gray-900 text-center hidden lg:flex">
             <div class="m-12 w-full bg-contain bg-center bg-no-repeat"
                 style="background-image: url('https://imgs.search.brave.com/wRpc4525FFIjVnyo56N6skWxpk8Pa7DTxzT5VlHG4b0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/Zm90by1ncmF0aXMv/bXVqZXItdGlyby1j/b21wbGV0by1heXVk/YW5kby1ob21icmVz/LWdpbW5hc2lvXzIz/LTIxNDk3NDQ2ODAu/anBnP3NpemU9NjI2/JmV4dD1qcGc');">
