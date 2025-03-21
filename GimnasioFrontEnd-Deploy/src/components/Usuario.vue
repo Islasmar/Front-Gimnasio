@@ -6,6 +6,7 @@
                 <h1 class="text-2xl xl:text-3xl font-extrabold text-gray-100">
                     Sign In
                 </h1>
+
                 <div class="w-full flex-1 mt-8">
                     <div class="flex flex-col items-center">
                         <button
@@ -26,9 +27,11 @@
                                         fill="#ea4335" />
                                 </svg>
                             </div>
+
                             <span class="ml-4">
                                 Sign Up with Google
                             </span>
+                            
                         </button>
 
                         <button
