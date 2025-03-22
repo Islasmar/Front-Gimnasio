@@ -11,6 +11,7 @@
                             <input type="number" placeholder="Miembro ID" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                             <input type="number" placeholder="Usuario ID" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
+
                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <select class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Tipo de miembro</option>
@@ -26,6 +27,7 @@
                                 <option value="inactivo">Inactivo</option>
                             </select>
                         </div>
+                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <input type="text" placeholder="Antigüedad" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                             <input type="date" placeholder="Fecha de Registro" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
