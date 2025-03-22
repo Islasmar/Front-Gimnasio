@@ -2,7 +2,6 @@
    <aside id="sidebar-multi-level-sidebar"
       class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
       <div class="h-screen px-3 py-4 overflow-y-auto bg-gray-300 dark:bg-gray-800">
-
          <ul class="space-y-2 font-medium">
             <li>
                <RouterLink to="/dashboard">
@@ -489,6 +488,7 @@
       <Footer></Footer>
    </div>
 </template>
+
 
 <script>
 import Home from '../components/Home.vue'
