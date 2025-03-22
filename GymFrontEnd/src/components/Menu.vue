@@ -1,7 +1,7 @@
 <template>
    <aside id="sidebar-multi-level-sidebar"
       class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-      <div class="h-screen px-3 py-4 overflow-y-auto bg-gray-300 dark:bg-gray-800">
+      <div class="h-screen px-3 py-4 overflow-y-auto bg-gradient-to-b from-red-600 to-gray-500 dark:from-gray-10 dark:to-black rounded-lg">
          <ul class="space-y-2 font-medium">
             <li>
                <RouterLink to="/dashboard">
