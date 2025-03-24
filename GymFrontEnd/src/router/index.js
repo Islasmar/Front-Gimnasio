@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import Menu from '@/components/Menu.vue'
+import Home from '@/components/Home.vue'
 import DashboardView from '@/components/views/DashboardView.vue'
 import SucursalView from '@/components/views/SucursalView.vue'
 import DietasView from '@/components/NutricionAdmin/Dietas.vue'
@@ -60,7 +61,7 @@ const router = createRouter({
     {
       path: '/home',
       name: 'home',
-      component: Menu,
+      component: Home,
         children:[
           {
             path:'/dashboard', name:'dashboard', component: DashboardView
@@ -177,6 +178,14 @@ const router = createRouter({
             path:'/Pedidos_Cliente', name:'Pedidos_Cliente', component: Pedidos_Cliente
           },
         ]
+    },
+    {
+      path: '/home/Menu',
+      component: Menu,
+    },
+    {
+      path: '/home/dashboard',
+      component: DashboardView,
     },
   ]
 })
