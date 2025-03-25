@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "gimnasio-frontend": "file:",
+    "lucide-vue-next": "^0.483.0",
+    "mysql2": "^3.14.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

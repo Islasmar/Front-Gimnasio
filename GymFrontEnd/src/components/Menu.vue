@@ -1,19 +1,21 @@
 <template>
    <aside id="sidebar-multi-level-sidebar"
-   class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto transition-transform -translate-x-full sm:translate-x-0 bg-black">
-      <div class="px-3 py-4 overflow-y-auto">
-         <ul class="space-y-2 font-medium text-white text-gray-100">
+          :class="{'translate-x-0': menuVisible, '-translate-x-full': !menuVisible}"
+          class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto transition-transform bg-black">
+     <div class="px-3 py-4 overflow-y-auto">
+       <ul class="space-y-2 font-medium text-white text-gray-100">
+         <li>
+           <RouterLink to="/home/dashboard" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                  class="w-5 h-5 text-white transition duration-75 group-hover:text-gray-300" aria-hidden="true">
+               <path
+                 d="M304 240V16.6c0-9 7-16.6 16-16.6C443.7 0 544 100.3 544 224c0 9-7.6 16-16.6 16H304zM32 272C32 150.7 122.1 50.3 239 34.3c9.2-1.3 17 6.1 17 15.4V288L412.5 444.5c6.7 6.7 6.2 17.7-1.5 23.1C371.8 495.6 323.8 512 272 512C139.5 512 32 404.6 32 272zm526.4 16c9.3 0 16.6 7.8 15.4 17c-7.7 55.9-34.6 105.6-73.9 142.3c-6 5.6-15.4 5.2-21.2-.7L320 288H558.4z" />
+             </svg>
+             <span class="ms-3">Dashboard</span>
+           </RouterLink>
+         </li>
             <li>
-               <RouterLink to="/home/dashboard" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-                     class="w-5 h-5 text-white transition duration-75 group-hover:text-gray-300" aria-hidden="true">
-                     <path
-                        d="M304 240V16.6c0-9 7-16.6 16-16.6C443.7 0 544 100.3 544 224c0 9-7.6 16-16.6 16H304zM32 272C32 150.7 122.1 50.3 239 34.3c9.2-1.3 17 6.1 17 15.4V288L412.5 444.5c6.7 6.7 6.2 17.7-1.5 23.1C371.8 495.6 323.8 512 272 512C139.5 512 32 404.6 32 272zm526.4 16c9.3 0 16.6 7.8 15.4 17c-7.7 55.9-34.6 105.6-73.9 142.3c-6 5.6-15.4 5.2-21.2-.7L320 288H558.4z" />
-                  </svg>
-                  <span class="ms-3">Dashboard</span>
-               </RouterLink>
-            </li>
-            <li>
+               <RouterLink to="/home/equipamiento" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
                <button type="button"
                   class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   aria-controls="dropdown-example7" data-collapse-toggle="dropdown-example7">
@@ -44,6 +46,7 @@
                      </RouterLink>
                   </li>
                </ul>
+            </RouterLink>
             </li>
             <li>
                <RouterLink to="/home/sucursal">
@@ -255,36 +258,70 @@
          </ul>
       </div>
    </aside>
-    <!-- Sección con imagen de fondo y texto -->
-    <div class="p-4 ml-64 h-screen w-[86%] flex items-center justify-center relative">
-      <!-- Imagen de fondo -->
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/src/assets/img/pexels-victorfreitas-791763.jpg'); opacity: 1;"></div>
+   <div :class="{'ml-64': menuVisible, 'ml-0': !menuVisible}" class="bg-black min-h-screen flex flex-col items-center p-6 transition-all">
+    <!-- Título en la parte superior -->
+    <h1 class="text-4xl font-bold text-white mb-6 z-20">Dashboard</h1>
 
-      <!-- Contenido centrado -->
-      <div class="relative z-10 text-white text-center max-w-2xl px-6">
-         <h1 class="text-4xl font-bold">BIENVENIDO A GYM BULLS</h1>
-         <p class="mt-4 text-lg">
-   Administra y supervisa todo lo que ocurre en GYM BULLS desde un solo lugar.<br />
-   Consulta información clave sobre socios, entrenadores, pagos y más.<br />
-   Optimiza la gestión de tu gimnasio y mantén todo bajo control de manera eficiente.
-</p>
+    <!-- Fondo de imagen detrás de las cartas -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/src/assets/img/pexels-leonardho-1552242.jpg'); opacity: 0.8;"></div>
 
-         <RouterLink to="/home/dashboard"
-            class="mt-6 inline-block bg-blue-600 text-white py-2 px-6 rounded-lg text-lg hover:bg-blue-700 transition">
-            Ir al Dashboard
-         </RouterLink>
+    <div class="grid grid-cols-3 gap-6 w-full max-w-6xl relative z-10">
+      <!-- Tarjetas de la primera fila -->
+      <div v-for="card in firstRowCards" :key="card.title" class="card">
+        <component :is="card.icon" class="text-4xl mb-2" />
+        <h2 class="text-xl font-bold">{{ card.title }}</h2>
+        <p class="text-sm text-gray-700">{{ card.description }}</p>
+        <div class="flex gap-4 mt-3 justify-center text-sm">
+          <button v-if="card.button1" :class="card.button1.class">{{ card.button1.text }}</button>
+          <button v-if="card.button2" :class="card.button2.class">{{ card.button2.text }}</button>
+        </div>
       </div>
-   </div>
-   <div class="p-4 ml-64 h-[100vh] w-[86%]">
-      <router-view />
-   </div>
+    </div>
 
+    <!-- Segunda fila -->
+    <div class="grid grid-cols-3 gap-6 w-full max-w-6xl mt-6 relative z-10">
+      <div v-for="card in secondRowCards" :key="card.title" class="card">
+        <component :is="card.icon" class="text-4xl mb-2" />
+        <h2 class="text-xl font-bold">{{ card.title }}</h2>
+        <p class="text-sm text-gray-700">{{ card.description }}</p>
+        <div class="flex gap-4 mt-3 justify-center">
+          <button v-if="card.button1" :class="card.button1.class">{{ card.button1.text }}</button>
+          <button v-if="card.button2" :class="card.button2.class">{{ card.button2.text }}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Evaluaciones e Instalaciones -->
+    <div class="grid grid-cols-2 gap-6 w-full max-w-6xl mt-6 relative z-10">
+      <div class="card">
+        <h2 class="text-xl font-bold">Evaluaciones de Servicio</h2>
+        <p class="text-sm text-gray-700">Comentarios de los clientes.</p>
+      </div>
+      <div class="card">
+        <h2 class="text-xl font-bold">Instalaciones</h2>
+        <p class="text-sm text-gray-700">Estado actual del gimnasio.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-4 ml-64 h-[100vh] w-[86%]">
+    <router-view />
+  </div>
+
+  <!-- Botón de toggle para el menú con una imagen -->
+  <button 
+      @click="toggleMenu" 
+      :class="{'fixed top-5 left-5': !menuVisible, 'fixed top-5 right-5': menuVisible}" 
+      class="text-white z-50 transition-all duration-300"
+    >
+      <img src="/src/assets/img/gymbulls-removebg-preview.png" alt="Toggle Menu" class="w-12 h-12" />
+    </button>
 </template>
-
 <script>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import Home from '../components/Home.vue';
 import Footer from './Footer.vue';
+import { Dumbbell, ClipboardList, Wrench, DollarSign, ShoppingCart } from 'lucide-vue-next';
 
 export default {
    components: {
@@ -292,6 +329,12 @@ export default {
       Footer
    },
    setup() {
+      const menuVisible = ref(false);  // Estado para controlar la visibilidad del menú
+
+      const toggleMenu = () => {
+         menuVisible.value = !menuVisible.value;  // Cambiar el estado al hacer clic
+      };
+
       onMounted(() => {
          // Agregar el script del chatbot de forma dinámica
          const script = document.createElement("script");
@@ -320,6 +363,139 @@ export default {
             }
          };
       });
+
+      return {
+         menuVisible,  // Exponer la variable para que sea accesible en el template
+         toggleMenu,   // Exponer la función para que sea accesible en el template
+         firstRowCards: [
+            {
+               title: 'Total de Equipos',
+               description: 'Inventario completo de equipos.',
+               icon: Dumbbell,
+               button1: { text: 'Ver lista', class: 'btn-green' },
+               button2: { text: 'Agregar', class: 'btn-red' }
+            },
+            {
+               title: 'Equipos Disponibles',
+               description: 'Equipos listos para su uso.',
+               icon: ClipboardList,
+               button1: { text: 'Ver lista', class: 'btn-green' }
+            },
+            {
+               title: 'Equipos Ocupados',
+               description: 'Actualmente en uso.',
+               icon: ClipboardList,
+               button1: { text: 'Ver lista', class: 'btn-green' }
+            }
+         ],
+         secondRowCards: [
+            {
+               title: 'Equipos en Mantenimiento',
+               description: 'Equipos fuera de servicio.',
+               icon: Wrench,
+               button1: { text: 'Ver lista', class: 'btn-green' },
+               button2: { text: 'Agregar', class: 'btn-red' }
+            },
+            {
+               title: 'Pagos Pendientes',
+               description: 'Pagos por procesar.',
+               icon: DollarSign,
+               button1: { text: 'Información', class: 'btn-green' }
+            },
+            {
+               title: 'Pedidos Realizados',
+               description: 'Historial de compras.',
+               icon: ShoppingCart,
+               button1: { text: 'Información', class: 'btn-green' },
+               button2: { text: 'Agregar', class: 'btn-red' }
+            }
+         ]
+      };
    }
 };
 </script>
+
+
+<style>
+.card {
+  background: rgba(255, 255, 255, 0.7); /* Reducir opacidad de las cartas */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Botón de plegar y desplegar */
+button {
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 10px;
+  color: white;
+}
+
+.btn-green {
+    background-color: #4CAF50; /* Botón verde */
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%; /* Botones del mismo tamaño */
+    max-width: 200px;
+    height: 45px;
+    text-align: center;
+    border: none;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .btn-red {
+    background-color: #FF5733; /* Botón rojo */
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%; /* Botones del mismo tamaño */
+    max-width: 200px;
+    height: 45px;
+    text-align: center;
+    border: none;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .btn-green:hover, .btn-red:hover {
+    transform: scale(1.05);
+    opacity: 0.9; /* Cambiar opacidad al pasar el mouse */
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .gap-4 {
+    gap: 1rem;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .relative {
+    position: relative;
+  }
+  
+  .absolute {
+    position: absolute;
+  }
+  
+  .bg-cover {
+    background-size: cover;
+  }
+  
+  .bg-center {
+    background-position: center;
+  }
+</style>

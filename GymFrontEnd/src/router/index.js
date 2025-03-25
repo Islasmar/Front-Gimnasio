@@ -150,12 +150,7 @@ const router = createRouter({
           },
           {
             path:'/PagosAdmin', name:'PagosAdmin', component: PagosAdmin
-          },
-
-
-
-
-          
+          },   
           {
             path:'/Promociones_Cliente', name:'Promociones_Cliente', component: Promociones_Cliente
           },
@@ -186,6 +181,10 @@ const router = createRouter({
     {
       path: '/home/dashboard',
       component: DashboardView,
+    },
+    {
+      path: '/home/equipamiento',
+      component: EquipamientoView,
     },
   ]
 })
