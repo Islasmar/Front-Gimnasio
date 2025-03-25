@@ -67,7 +67,7 @@ const router = createRouter({
             path:'/dashboard', name:'dashboard', component: DashboardView
           },
           {
-            path:'/sucursal', name:'sucursal', component: SucursalView
+            path:'/sucursales', name:'sucursal', component: SucursalView
           },
           {
             path:'/dietas', name:'dietas', component: DietasView
@@ -185,6 +185,14 @@ const router = createRouter({
     {
       path: '/home/equipamiento',
       component: EquipamientoView,
+    },
+    {
+      path: '/home/sucursales',
+      component: SucursalView,
+    },
+    {
+      path: '/home/mantenimiento',
+      component: MantenimientoView,
     },
   ]
 })
