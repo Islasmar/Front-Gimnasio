@@ -133,6 +133,7 @@
                </button>
             </li>
             <li>
+               <RouterLink to="/transacciones" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
                <button type="button"
                   class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   aria-controls="dropdown-example6" data-collapse-toggle="dropdown-example6">
@@ -149,6 +150,7 @@
                         d="m1 1 4 4 4-4" />
                   </svg>
                </button>
+               </RouterLink>
             </li>
             <li>
                <button type="button"

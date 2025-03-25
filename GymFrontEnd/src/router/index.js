@@ -42,7 +42,7 @@ import Opiniones_clientes_Cliente from '@/components/VentasClientes/Opiniones_cl
 import Pagos_Cliente from '@/components/VentasClientes/Pagos_Cliente.vue'
 import Pedidos_Cliente from '@/components/VentasClientes/Pedidos_Cliente.vue'
 
-
+import Transacciones from '@/components/views/Transacciones.vue'
 
 
 const router = createRouter({
@@ -194,6 +194,8 @@ const router = createRouter({
       path: '/home/mantenimiento',
       component: MantenimientoView,
     },
+    { path: '/transacciones', 
+      component: Transacciones },
   ]
 })
 

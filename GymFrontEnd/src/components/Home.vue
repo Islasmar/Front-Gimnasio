@@ -2,7 +2,7 @@
   <div>
     <!-- NAVBAR -->
     <nav class="navbar">
-      <img src="/src/assets/img/gymbulls-removebg-preview.png" alt="Logo" class="logo">
+      <img src="@/assets/img/gymbulls-removebg-preview.png" alt="Logo" class="logo">
       <div class="nav-buttons">
         <button @click="scrollTo('inicio')">Inicio</button>
         <button @click="scrollTo('sobre-nosotros')">Sobre Nosotros</button>
@@ -14,7 +14,7 @@
     <!-- SECCIÓN INICIO -->
     <section id="inicio" class="inicio-section">
       <div class="overlay"></div>
-      <img src="/src/assets/img/pexels-leonardho-1552249.jpg" class="background-image">
+      <img src="@/assets/img/pexels-leonardho-1552249.jpg" class="background-image">
       <div class="inicio-content">
         <h1 class="inicio-title">
           Fortalece tu <br>
@@ -25,50 +25,80 @@
           ¡Entrena como un profesional! Mejora tu salud y resistencia con nuestros programas de Training, Gym y más.
         </p>
         <RouterLink to="/home/Menu">
-          <button class="dashboard-btn">Ir al Menu</button>
+          <button class="dashboard-btn">Ir al Menú</button>
         </RouterLink>
-      </div>
-      <div class="inicio-image-wrapper">
-        <div class="inicio-overlay"></div>
-        <img src="/src/assets/img/gymbulls-removebg-preview.png" class="inicio-image">
       </div>
     </section>
 
     <!-- SECCIÓN SOBRE NOSOTROS -->
-  <section id="sobre-nosotros" class="sobre-nosotros-section">
-  <h2 class="sobre-nosotros-title">¿Por qué elegirnos?</h2>
-  <p class="sobre-nosotros-description">Entrenadores expertos, resultados reales y un ambiente que te motiva a superarte cada día.</p>
-  <div class="sobre-nosotros-content">
-    <div class="sobre-nosotros-list">
-      <div class="row-top">
-        <p>✔ Planes Personalizados</p>
-        <p>✔ Instalaciones de Primera</p>
+    <section id="sobre-nosotros" class="sobre-nosotros-section">
+      <div class="sobre-nosotros-content">
+        <h2 class="sobre-nosotros-title">¿Por qué elegirnos?</h2>
+        <p class="sobre-nosotros-description">
+          En Gym Bulls, contamos con entrenadores expertos, equipos de última tecnología, y un ambiente de motivación continua para ayudarte a lograr tus objetivos. 
+        </p>
+        <div class="values-container">
+          <div class="value-item">
+            <h3>Entrenadores Expertos</h3>
+            <p>Contamos con un equipo altamente capacitado, listo para brindarte un entrenamiento personalizado.</p>
+          </div>
+          <div class="value-item">
+            <h3>Ambiente Motivador</h3>
+            <p>Te ofrecemos un espacio donde te sentirás motivado y apoyado por otros miembros y entrenadores.</p>
+          </div>
+          <div class="value-item">
+            <h3>Resultados Reales</h3>
+            <p>Nos enfocamos en resultados tangibles, con programas de entrenamiento diseñados para maximizar tu rendimiento.</p>
+          </div>
+        </div>
       </div>
-      <div class="row-bottom">
-        <p>✔ Soporte 24/7</p>
-        <p>✔ Resultados Garantizados</p>
-      </div>
+    </section>
+
+        <!-- CARRUSEL -->
+        <div class="carousel-section">
+      <Carousel :autoplay="3000" :wrap-around="true">
+        <Slide v-for="(img, index) in images" :key="index">
+          <img :src="img" alt="Imagen de carrusel" class="carousel-image">
+        </Slide>
+      </Carousel>
     </div>
-    <div class="sobre-nosotros-images">
-      <img src="./GymFrontEnd/src/assets/img/pexels-leonardho-1552242.jpg" class="image">
-      <img src="./GymFrontEnd/src/assets/img/pexels-leonardho-1552249.jpg" class="image">
-      <img src="./GymFrontEnd/src/assets/img/pexels-willpicturethis-1954524.jpg" class="image">
-    </div>
-  </div>
-</section>
-  <!-- 👇 Aquí se renderizará el Dashboard -->
-  <router-view></router-view>
+
+    <!-- Renderiza las rutas dinámicas -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+import { Carousel, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
+
+export default defineComponent({
+  components: { Carousel, Slide },
+  data() {
+    return {
+      images: [
+        "https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg",
+        "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/3838700/pexels-photo-3838700.jpeg?auto=compress&cs=tinysrgb&w=600"
+      ]
+    };
+  },
   methods: {
     scrollTo(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    },
+    prevSlide() {
+      this.$refs.carousel.prev();
+    },
+    nextSlide() {
+      this.$refs.carousel.next();
     }
   }
-}
+});
 </script>
 
 <style scoped>
@@ -170,94 +200,68 @@ export default {
   margin-left: 32px;
 }
 
-/* Imagen y overlay de la sección inicio */
-.inicio-image-wrapper {
-  position: absolute;
-  right: 16px;
-  top: 33%;
-  opacity: 0.6;
-}
-
-.inicio-overlay {
-  position: relative;
-  width: 256px;
-  height: 256px;
-  background-color: white;
-  opacity: 0.2;
-  transform: rotate(45deg);
-}
-
-.inicio-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
 /* Sección Sobre Nosotros */
 .sobre-nosotros-section {
-  background-color: white;
+  background: linear-gradient(135deg, #9e1313, #a81313);
+  color: white;
   text-align: center;
-  padding: 64px 0;
+  padding: 80px 0;
 }
 
 .sobre-nosotros-title {
-  font-size: 36px;
+  font-size: 42px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .sobre-nosotros-description {
-  font-size: 18px;
-  margin-top: 8px;
-}
-
-.sobre-nosotros-content {
-  display: flex;
-  justify-content: center;
-  margin-top: 32px;
-  gap: 40px;
-}
-
-.sobre-nosotros-list {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-left: 32px;
-}
-
-.sobre-nosotros-list p {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 300;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.row-top,
-.row-bottom {
+.values-container {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.sobre-nosotros-images {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  position: relative;
+.value-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px;
+  text-align: left;
 }
 
-.image {
-  width: 160px;
-  height: 160px;
+.value-item h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.value-item p {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+
+/* Sección Carrusel */
+.carousel-section {
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* Estilo para las imágenes del carrusel */
+.carousel-image {
+  width: 40%;
+  height: auto;
   object-fit: cover;
+  border-radius: 8px;
 }
 
-.image-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 25%;
-  width: 192px;
-  height: 192px;
-  object-fit: cover;
-}
 </style>
