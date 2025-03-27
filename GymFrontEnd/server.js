@@ -15,7 +15,7 @@ const db = mysql.createConnection({
   user: 'root',       // Tu usuario de MySQL
   password: '1234',   // Tu contraseña de MySQL
   database: 'gimnasioo_8b_idgs_220875',
-  port: 3307
+  port: 3306
 });
 
 // Verificar si la conexión es exitosa

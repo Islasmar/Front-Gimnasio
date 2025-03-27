@@ -6,9 +6,8 @@
       <div class="nav-buttons">
         <button @click="scrollTo('inicio')">Inicio</button>
         <button @click="scrollTo('sobre-nosotros')">Sobre Nosotros</button>
-        <button>Contacto</button>
+        <button @click="scrollTo('carrusel')">Contacto</button>
       </div>
-      <button class="logout-btn">Iniciar sesión</button>
     </nav>
 
     <!-- SECCIÓN INICIO -->
@@ -31,78 +30,106 @@
     </section>
 
     <!-- SECCIÓN SOBRE NOSOTROS -->
-    <section id="sobre-nosotros" class="sobre-nosotros-section">
-      <div class="sobre-nosotros-content">
-        <h2 class="sobre-nosotros-title">¿Por qué elegirnos?</h2>
-        <p class="sobre-nosotros-description">
-          En Gym Bulls, contamos con entrenadores expertos, equipos de última tecnología, y un ambiente de motivación continua para ayudarte a lograr tus objetivos. 
-        </p>
-        <div class="values-container">
-          <div class="value-item">
-            <h3>Entrenadores Expertos</h3>
-            <p>Contamos con un equipo altamente capacitado, listo para brindarte un entrenamiento personalizado.</p>
-          </div>
-          <div class="value-item">
-            <h3>Ambiente Motivador</h3>
-            <p>Te ofrecemos un espacio donde te sentirás motivado y apoyado por otros miembros y entrenadores.</p>
-          </div>
-          <div class="value-item">
-            <h3>Resultados Reales</h3>
-            <p>Nos enfocamos en resultados tangibles, con programas de entrenamiento diseñados para maximizar tu rendimiento.</p>
-          </div>
-          <!-- Triángulo con logo -->
-      <div class="triangle-container">
-        <div class="triangle"></div>
-        <img src="/src/assets/img/gymbulls-removebg-preview.png" alt="Logo" class="triangle-logo">
+<section id="sobre-nosotros" class="sobre-nosotros-section">
+  <div class="sobre-nosotros-content">
+    <h2 class="sobre-nosotros-title">¿Por qué elegirnos?</h2>
+    <p class="sobre-nosotros-description">
+      En Gym Bulls, contamos con entrenadores expertos, equipos de última tecnología, y un ambiente de motivación continua para ayudarte a lograr tus objetivos.
+    </p>
+    <div class="values-container">
+      <div class="value-item" data-img="/src/assets/img/img1.jpg">
+        <h3>Entrenadores Expertos</h3>
+        <p>Contamos con un equipo altamente capacitado, listo para brindarte un entrenamiento personalizado.</p>
       </div>
-        </div>
+      <div class="value-item" data-img="/src/assets/img/amigas.jpg">
+        <h3>Ambiente Motivador</h3>
+        <p>Te ofrecemos un espacio donde te sentirás motivado y apoyado por otros miembros y entrenadores.</p>
       </div>
-    </section>
-
-        <!-- CARRUSEL -->
-        <div class="carousel-section">
-      <Carousel :autoplay="3000" :wrap-around="true">
-        <Slide v-for="(img, index) in images" :key="index">
-          <img :src="img" alt="Imagen de carrusel" class="carousel-image">
-        </Slide>
-      </Carousel>
+      <div class="value-item" data-img="/src/assets/img/img3.jpg">
+        <h3>Resultados Reales</h3>
+        <p>Nos enfocamos en resultados tangibles, con programas de entrenamiento diseñados para maximizar tu rendimiento.</p>
+      </div>
     </div>
+  </div>
+</section>
+
+
+       <!-- CARRUSEL -->
+<div class="carousel-section" id="carrusel">
+  <div class="carousel-container">
+    <Carousel :autoplay="3000" :wrap-around="true">
+      <Slide v-for="(img, index) in images" :key="index">
+        <img :src="img" alt="Imagen de carrusel" class="carousel-image">
+      </Slide>
+    </Carousel>
+    <!-- Rectángulo con texto sobre el carrusel -->
+    <div class="carousel-overlay">
+      <div class="carousel-text">Bienvenido a Gym Bulls: Donde la Fuerza y la Disciplina Se Encuentran.🔥🏋️‍♂️</div><br>
+      <p class="inicio-description">
+        Transforma tu cuerpo, fortalece tu mente y supera tus límites con nosotros. Contamos con entrenadores expertos, equipos de última generación y un ambiente que te impulsa a dar siempre lo mejor. <br>¡Únete al equipo y conquista tus metas!"
+        </p>
+    </div>
+  </div>
+</div>
 
     <!-- Renderiza las rutas dinámicas -->
     <router-view></router-view>
+     <!-- FOOTER -->
+     <footer class="footer">
+      <p>© 2024 Gym Bulls. Todos los derechos reservados.</p>
+    </footer>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
   components: { Carousel, Slide },
-  data() {
+  setup() {
+    const images = [
+      "/src/assets/img/img1.jpg",
+      "/src/assets/img/img2.jpg",
+      "/src/assets/img/img3.jpg",
+      "/src/assets/img/img4.jpg",
+      "/src/assets/img/pexels-victorfreitas-841130.jpg",
+      "/src/assets/img/img5.jpg",
+    ];
+
+    const valueItems = ref([]);
+
+    // Manejar la animación al pasar el mouse
+    const handleMouseEvent = (event, img) => {
+      if (event.type === "mouseenter") {
+        event.target.style.backgroundImage = `url(${img})`;
+        event.target.style.backgroundSize = "cover";
+        event.target.style.backgroundPosition = "center";
+        event.target.style.color = "transparent";
+      } else {
+        event.target.style.backgroundImage = "none";
+        event.target.style.color = "white";
+      }
+    };
+
+    onMounted(() => {
+      valueItems.value = document.querySelectorAll(".value-item");
+      valueItems.value.forEach((item) => {
+        item.addEventListener("mouseenter", (e) =>
+          handleMouseEvent(e, item.dataset.img)
+        );
+        item.addEventListener("mouseleave", handleMouseEvent);
+      });
+    });
+
     return {
-      images: [
-        "https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg",
-        "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "https://images.pexels.com/photos/3838700/pexels-photo-3838700.jpeg?auto=compress&cs=tinysrgb&w=600"
-      ]
+      images,
+      scrollTo(id) {
+        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+      },
     };
   },
-  methods: {
-    scrollTo(id) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-    },
-    prevSlide() {
-      this.$refs.carousel.prev();
-    },
-    nextSlide() {
-      this.$refs.carousel.next();
-    }
-  }
 });
 </script>
 
@@ -200,7 +227,7 @@ export default defineComponent({
 
 /* Sección Sobre Nosotros */
 .sobre-nosotros-section {
-  background: linear-gradient(135deg, #9e1313, #a81313);
+  background: linear-gradient(135deg, #000000, #a81313);
   color: white;
   text-align: center;
   padding: 80px 0;
@@ -234,6 +261,9 @@ export default defineComponent({
   padding: 20px;
   width: 250px;
   text-align: left;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  position: relative;
 }
 
 .value-item h3 {
@@ -251,16 +281,36 @@ export default defineComponent({
 /* Sección Carrusel */
 .carousel-section {
   text-align: center;
-  padding: 40px 0;
+}
+
+/* Contenedor del carrusel con posición relativa */
+.carousel-container {
+  position: relative;
 }
 
 /* Estilo para las imágenes del carrusel */
 .carousel-image {
-  width: 40%;
-  height: auto;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  border-radius: 8px;
 }
+
+/* Rectángulo con texto sobre el carrusel */
+.carousel-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.683); /* Fondo oscuro */
+  color: white;
+  padding: 20px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 10px;
+  z-index: 10; /* Asegura que el texto esté sobre el carrusel */
+  text-align: center;
+}
+
 
 /* Estilos para el triángulo y logo */
 .triangle-container {
@@ -289,5 +339,6 @@ export default defineComponent({
   height: auto;
 }
 
-
+/* Footer */
+.footer { background: black; color: white; text-align: center; padding: 20px; }
 </style>
