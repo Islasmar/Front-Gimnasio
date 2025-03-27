@@ -5,34 +5,22 @@ import Menu from '@/components/Menu.vue'
 import Home from '@/components/Home.vue'
 import DashboardView from '@/components/views/DashboardView.vue'
 import SucursalView from '@/components/views/SucursalView.vue'
-import DietasView from '@/components/NutricionAdmin/Dietas.vue'
-import PreguntaNutricionalView from '@/components/views/NutricionAdmin/PreguntaNutricionalView.vue'
-import ValoracionNutricionalView from '@/components/views/NutricionAdmin/ValoracionNutricionalView.vue'
 import EjerciciosView from '@/components/views/EjerciciosView.vue'
 import RutinasEjerciciosView from '@/components/views/RutinasEjerciciosView.vue'
 import RutinasView from '@/components/views/RutinasView.vue'
-import ProgramaSaludableView from '@/components/views/ProgramaSaludableView.vue'
-import DetalleProgramaView from '@/components/views/DetalleProgramaView.vue'
 import EquipamientoView from '@/components/views/EquipamientoView.vue'
 import PrestamosView from '@/components/views/PrestamosView.vue'
-import MembresiasView from '@/components/views/MembresiasView.vue'
-import MiembrosView from '@/components/views/MembresiaMiembros/MiembrosView.vue'
 import PersonasView from '@/components/views/PersonasView.vue'
-import AreasView from '@/components/views/AreasView.vue'
 import PuestosView from '@/components/views/PuestosView.vue'
 import EmpleadosView from '@/components/views/EmpleadosView.vue'
-import InstructoresView from '@/components/views/InstructoresView.vue'
 import HorariosView from '@/components/views/HorariosView.vue'
 import InstalacionesView from '@/components/views/InstalacionesView.vue'
 import MantenimientoView from '@/components/views/MantenimientoView.vue'
 
 import ProductosAdmin from '@/components/VentasAdmin/ProductosAdmin.vue'
-import PreguntasAdmin from '@/components/VentasAdmin/PreguntasAdmin.vue'
 import PedidosAdmin from '@/components/VentasAdmin/PedidosAdmin.vue'
-import EvaluacionServicioAdmin from '@/components/VentasAdmin/EvaluacionServicioAdmin.vue'
 import PagosAdmin from '@/components/VentasAdmin/PagosAdmin.vue'
 import PromocionesAdmin from '@/components/VentasAdmin/PromocionesAdmin.vue'
-import Opiniones_clientes_Admin from '@/components/VentasAdmin/Opiniones_clientes_Admin.vue'
 
 import Promociones_Cliente from '@/components/VentasClientes/Promociones_Cliente.vue'
 import Productos_Cliente from '@/components/VentasClientes/Productos_Cliente.vue'
@@ -50,6 +38,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/home/login',
       name: 'login',
       component: Login
     },
@@ -59,9 +52,9 @@ const router = createRouter({
       component: Register
     },
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
+      path: '/Menu',
+      name: 'Menu',
+      component: Menu,
         children:[
           {
             path:'/dashboard', name:'dashboard', component: DashboardView
@@ -70,28 +63,13 @@ const router = createRouter({
             path:'/sucursales', name:'sucursal', component: SucursalView
           },
           {
-            path:'/dietas', name:'dietas', component: DietasView
-          },
-          {
-            path:'/preguntaNutricional', name:'preguntaNutricional', component: PreguntaNutricionalView
-          },
-          {
-            path:'/valoracionNutricional', name:'valoracionNutricional', component: ValoracionNutricionalView
-          },
-          {
             path:'/ejercicios', name:'ejercicios', component: EjerciciosView
           },
           {
             path:'/rutinas', name:'rutinas', component: RutinasView
           },
           {
-            path:'/programaSaludable', name:'programaSaludable', component: ProgramaSaludableView
-          },
-          {
             path:'/rutinasEjercicios', name:'rutinasEjercicios', component: RutinasEjerciciosView
-          },
-          {
-            path:'/detalleProgramas', name:'detalleProgramas', component: DetalleProgramaView
           },
           {
             path:'/equipamiento', name:'equipamiento', component: EquipamientoView
@@ -100,25 +78,13 @@ const router = createRouter({
             path:'/prestamos', name:'prestamos', component: PrestamosView
           },
           {
-            path:'/membresias', name:'membresias', component: MembresiasView
-          },
-          {
-            path:'/miembros', name:'miembros', component: MiembrosView
-          },
-          {
             path:'/personas', name:'personas', component: PersonasView
-          },
-          {
-            path:'/areas', name:'areas', component: AreasView
           },
           {
             path:'/puestos', name:'puestos', component: PuestosView
           },
           {
             path:'/empleados', name:'empleados', component: EmpleadosView
-          },
-          {
-            path:'/instructores', name:'intructores', component: InstructoresView
           },
           {
             path:'/horarios', name:'horarios', component: HorariosView
@@ -134,19 +100,10 @@ const router = createRouter({
             path:'/ProductosAdmin', name:'ProductosAdmin', component: ProductosAdmin
           },
           {
-            path:'/Opiniones_clientes_Admin', name:'Opiniones_clientes_Admin', component: Opiniones_clientes_Admin
-          },
-          {
             path:'/PromocionesAdmin', name:'PromocionesAdmin', component: PromocionesAdmin
           },
           {
-            path:'/PreguntasAdmin', name:'PreguntasAdmin', component: PreguntasAdmin
-          },
-          {
             path:'/PedidosAdmin', name:'PedidosAdmin', component: PedidosAdmin
-          },
-          {
-            path:'/EvaluacionServicioAdmin', name:'EvaluacionServicioAdmin', component: EvaluacionServicioAdmin
           },
           {
             path:'/PagosAdmin', name:'PagosAdmin', component: PagosAdmin
@@ -175,23 +132,19 @@ const router = createRouter({
         ]
     },
     {
-      path: '/home/Menu',
-      component: Menu,
-    },
-    {
-      path: '/home/dashboard',
+      path: '/Menu/dashboard',
       component: DashboardView,
     },
     {
-      path: '/home/equipamiento',
+      path: '/Menu/equipamiento',
       component: EquipamientoView,
     },
     {
-      path: '/home/sucursales',
+      path: '/Menu/sucursales',
       component: SucursalView,
     },
     {
-      path: '/home/mantenimiento',
+      path: '/Menu/mantenimiento',
       component: MantenimientoView,
     },
     { path: '/transacciones', 

@@ -8,7 +8,7 @@
         <button @click="scrollTo('sobre-nosotros')">Sobre Nosotros</button>
         <button>Contacto</button>
       </div>
-      <button class="logout-btn">Cerrar sesión</button>
+      <button class="logout-btn">Iniciar sesión</button>
     </nav>
 
     <!-- SECCIÓN INICIO -->
@@ -24,8 +24,8 @@
         <p class="inicio-description">
           ¡Entrena como un profesional! Mejora tu salud y resistencia con nuestros programas de Training, Gym y más.
         </p>
-        <RouterLink to="/home/Menu">
-          <button class="dashboard-btn">Ir al Menú</button>
+        <RouterLink to="/home/login">
+          <button class="dashboard-btn">¡Inicia sesión!</button>
         </RouterLink>
       </div>
     </section>
@@ -50,6 +50,11 @@
             <h3>Resultados Reales</h3>
             <p>Nos enfocamos en resultados tangibles, con programas de entrenamiento diseñados para maximizar tu rendimiento.</p>
           </div>
+          <!-- Triángulo con logo -->
+      <div class="triangle-container">
+        <div class="triangle"></div>
+        <img src="/src/assets/img/gymbulls-removebg-preview.png" alt="Logo" class="triangle-logo">
+      </div>
         </div>
       </div>
     </section>
@@ -134,13 +139,6 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.logout-btn {
-  background-color: red;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
 
 /* Sección Inicio */
 .inicio-section {
@@ -175,7 +173,7 @@ export default defineComponent({
 }
 
 .inicio-title {
-  font-size: 60px;
+  font-size: 65px;
   font-weight: bold;
   color: antiquewhite;
   line-height: 1.2;
@@ -193,7 +191,7 @@ export default defineComponent({
 .dashboard-btn {
   margin-top: 24px;
   padding: 12px 24px;
-  background-color: blue;
+  background-color: red;
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -263,5 +261,33 @@ export default defineComponent({
   object-fit: cover;
   border-radius: 8px;
 }
+
+/* Estilos para el triángulo y logo */
+.triangle-container {
+  position: absolute;
+  right: 0px; /* Cambiado de right a left */
+  top: 10%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 350px solid transparent; /* Aumentado tamaño */
+  border-bottom: 350px solid transparent;
+  border-right: 450px solid rgba(255, 255, 255, 0.3); /* Apunta en la dirección contraria */
+}
+
+.triangle-logo {
+  position: absolute;
+  top: 50%;
+  right: -50px; /* Ajustado para que se posicione mejor */
+  transform: translateY(-50%);
+  width: 450px; /* Más grande */
+  height: auto;
+}
+
 
 </style>

@@ -40,7 +40,7 @@
             <input type="password" id="password"
                 class="w-full border-gray-300 bg-white/20 text-white rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
 
-            <router-link to="/home">
+            <router-link to="/Menu">
                 <button
                     class="mt-5 w-full py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300">
                     Iniciar Sesión

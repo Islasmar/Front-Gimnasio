@@ -66,7 +66,7 @@
                    type="file" />
           </div>
 
-          <a href="/home" class="col-span-2">
+          <a href="/home/login" class="col-span-2">
             <button class="w-full py-3 rounded-lg text-white font-semibold bg-red-600 
                            border border-gray-400 hover:bg-red-800 transition-all duration-300 
                            ease-in-out shadow-md">
