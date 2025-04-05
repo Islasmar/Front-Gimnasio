@@ -32,7 +32,6 @@
         <table class="table-auto w-full mt-4 bg-white text-black">
           <thead>
             <tr class="bg-red-600 text-white">
-              <th class="px-4 py-2">Área</th>
               <th class="px-4 py-2">Nombre</th>
               <th class="px-4 py-2">Marca</th>
               <th class="px-4 py-2">Modelo</th>
@@ -49,7 +48,6 @@
               :key="equipo.id"
               class="border-b border-gray-300"
             >
-              <td class="px-4 py-2">{{ equipo.area }}</td>
               <td class="px-4 py-2">{{ equipo.nombre }}</td>
               <td class="px-4 py-2">{{ equipo.marca }}</td>
               <td class="px-4 py-2">{{ equipo.modelo }}</td>

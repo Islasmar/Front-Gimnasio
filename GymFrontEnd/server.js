@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',       // Tu usuario de MySQL
   password: '1234',   // Tu contraseña de MySQL
-  database: 'gimnasioo_8b_idgs_220875',
+  database: 'gym',
   port: 3306
 });
 
@@ -27,9 +27,27 @@ db.connect((err) => {
   }
 });
 
+app.post("/login", (req, res) => {
+  const { correo_electronico, contrasena } = req.body;
+  const sql = "SELECT * FROM tbb_usuarios WHERE correo_electronico = ? AND contrasena = ?";
+
+  db.query(sql, [correo_electronico, contrasena], (err, results) => {
+    if (err) {
+      console.error("Error al buscar usuario:", err);
+      return res.status(500).json({ error: "Error del servidor" });
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  });
+});
+
 // Ruta para obtener todos los equipos (ya existente)
 app.get('/equipos', (req, res) => {
-  const query = 'SELECT area, nombre, marca, modelo, fotografia, estatus, total_existencias, fecha_registro FROM tbb_equipamientos';
+  const query = 'SELECT nombre, marca, modelo, fotografia, estatus, total_existencias, fecha_registro FROM tbb_equipamientos';
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error al obtener equipos:', err);
@@ -91,7 +109,7 @@ app.get('/sucursales', (req, res) => {
 
   // Ruta para obtener todos los mantenimientos
 app.get('/mantenimiento', (req, res) => {
-    const query = 'SELECT equipo, descripcion, responsable, costo, estatus, fecha_mantenimiento FROM tbb_mantenimientos';
+    const query = 'SELECT descripcion, responsable, costo, estatus, fecha_mantenimiento FROM tbb_mantenimiento';
     db.query(query, (err, results) => {
       if (err) {
         console.error('Error al obtener mantenimientos:', err);
@@ -101,7 +119,47 @@ app.get('/mantenimiento', (req, res) => {
       }
     });
   });
- 
+
+  app.get('/instalaciones', (req, res) => {
+    const query = `SELECT Sucursal_Id, Descripcion, Tipo, Observaciones, Estatus, Fecha_Registro FROM tbb_instalaciones`;
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('Error al obtener las instalaciones:', err);
+        res.status(500).send('Error en el servidor');
+      } else {
+        res.json(results);
+      }
+    });
+  });
+
+  // Obtener todos los productos (sin `id` ni `fecha_actualizacion`)
+app.get("/productos", (req, res) => {
+  const sql = `SELECT nombre, marca, cod_barras, descripcion, precio_actual, fotografia, estatus, fecha_registro 
+               FROM tbb_productos`;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error al obtener productos:", err);
+      return res.status(500).json({ error: "Error en el servidor" });
+    }
+    res.json(results);
+  });
+});
+
+// Obtener todos los usuarios (sin fecha_actualizacion)
+app.get("/usuarios", (req, res) => {
+  const sql = `SELECT id, nombre_usuario, correo_electronico, contrasena, numero_telefonico_movil, estatus, fecha_registro 
+               FROM tbb_usuarios`;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error al obtener usuarios:", err);
+      return res.status(500).json({ error: "Error en el servidor" });
+    }
+    res.json(results);
+  });
+});
+
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor Node.js escuchando en el puerto ${port}`);

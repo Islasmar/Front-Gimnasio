@@ -53,6 +53,13 @@
   </div>
 </section>
 
+<template>
+  <div class="triangle-container">
+    <div class="triangle"></div>
+    <img src="/src/assets/img/gymbulls.jpg" alt="Logo" class="triangle-logo">
+  </div>
+</template>
+
 
        <!-- CARRUSEL -->
 <div class="carousel-section" id="carrusel">
@@ -62,6 +69,7 @@
         <img :src="img" alt="Imagen de carrusel" class="carousel-image">
       </Slide>
     </Carousel>
+
     <!-- Rectángulo con texto sobre el carrusel -->
     <div class="carousel-overlay">
       <div class="carousel-text">Bienvenido a Gym Bulls: Donde la Fuerza y la Disciplina Se Encuentran.🔥🏋️‍♂️</div><br>
@@ -69,6 +77,7 @@
         Transforma tu cuerpo, fortalece tu mente y supera tus límites con nosotros. Contamos con entrenadores expertos, equipos de última generación y un ambiente que te impulsa a dar siempre lo mejor. <br>¡Únete al equipo y conquista tus metas!"
         </p>
     </div>
+
   </div>
 </div>
 

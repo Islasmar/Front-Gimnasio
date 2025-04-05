@@ -34,18 +34,13 @@
 
             <label for="email" class="block text-white mt-6 mb-2">Correo Electrónico</label>
             <input type="email" id="email"
-                class="w-full border-gray-300 bg-white/20 text-white rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+            v-model="email" required class="w-full border-gray-300 bg-white/20 text-black rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"/>
 
             <label for="password" class="block text-white mt-4 mb-2">Contraseña</label>
-            <input type="password" id="password"
-                class="w-full border-gray-300 bg-white/20 text-white rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+            <input type="password" id="password" v-model="password" required class="w-full border-gray-300 bg-white/20 text-black rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"/>
 
-            <router-link to="/Menu">
-                <button
-                    class="mt-5 w-full py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300">
-                    Iniciar Sesión
-                </button>
-            </router-link>
+            <button @click="iniciarSesion" class="mt-5 w-full py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300">Iniciar Sesión</button>
+
 
 
             <p class="mt-4 text-center text-sm text-white">
@@ -54,3 +49,31 @@
         </div>
     </div>
 </template>
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const router = useRouter()
+
+const iniciarSesion = async () => {
+  try {
+    const response = await axios.post('http://localhost:5000/login', {
+      correo_electronico: email.value,
+      contrasena: password.value
+    })
+
+    if (response.data.success) {
+      // Redirige al menú si las credenciales son correctas
+      router.push('/Menu')
+    } else {
+      alert('Correo o contraseña incorrectos')
+    }
+  } catch (error) {
+    console.error(error)
+    alert('Error al iniciar sesión')
+  }
+}
+</script>
