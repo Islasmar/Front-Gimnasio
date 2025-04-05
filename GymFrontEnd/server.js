@@ -1,6 +1,8 @@
 import express from 'express'; 
 import mysql from 'mysql2';
 import cors from 'cors';
+import AddEquipo from '/src/components/forms/AddEquipo.vue';
+
 
 const app = express();
 const port = 5000;
@@ -26,6 +28,8 @@ db.connect((err) => {
     console.log('Conexión a la base de datos exitosa');
   }
 });
+
+
 
 app.post("/login", (req, res) => {
   const { correo_electronico, contrasena } = req.body;

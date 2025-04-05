@@ -123,7 +123,7 @@
         this.$router.push({ name: 'editInstalacion', params: { id } });
       },
       redirectToAddForm() {
-        this.$router.push({ name: 'addInstalacion' });
+        this.$router.push({ name: 'addInstalaciones' });
       }
     },
     mounted() {

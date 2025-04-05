@@ -12,6 +12,13 @@ import MantenimientoView from '@/components/views/MantenimientoView.vue'
 import UsuariosView from '@/components/UsuariosView.vue'
 import ProductosView from '@/components/views/ProductosView.vue'
 
+import addEquipo from '@/components/forms/addEquipo.vue'
+import addSucursal from '@/components/forms/addSucursal.vue'
+import addMantenimiento from '@/components/forms/addMantenimiento.vue'
+import addInstalaciones from '@/components/forms/addInstalaciones.vue'
+import addProducto from '@/components/forms/addProducto.vue'
+import addUsuario from '@/components/forms/addUsuario.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,6 +94,30 @@ const router = createRouter({
   { path: '/Menu/usuarios', 
     component: UsuariosView  
 },
+  { path: '/agregar-equipo',
+    name: 'addEquipo',
+    component: addEquipo
+  },
+  { path: '/agregar-sucursal',
+    name: 'addSucursal',
+    component: addSucursal
+  },
+  { path: '/agregar-mantenimiento',
+    name: 'addMantenimiento',
+    component: addMantenimiento
+  },
+  { path: '/agregar-instalaciones',
+    name: 'addInstalaciones',
+    component: addInstalaciones
+  },
+  { path: '/agregar-productos',
+    name: 'addProducto',
+    component: addProducto
+  },
+  { path: '/agregar-usuario',
+    name: 'addUsuario',
+    component: addUsuario
+  },
   ]
 })
 
