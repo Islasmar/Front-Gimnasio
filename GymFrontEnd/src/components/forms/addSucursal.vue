@@ -19,30 +19,30 @@
           </h2>
   
           <div class="flex flex-col gap-4">
-            <input v-model="form.nombre" type="text" placeholder="Nombre" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Nombre" type="text" placeholder="Nombre" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.direccion" type="text" placeholder="Dirección" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Direccion" type="text" placeholder="Dirección" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.responsable_id" type="number" placeholder="Responsable ID" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Responsable_Id" type="number" placeholder="Responsable ID" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.total_clientes_atendidos" type="number" placeholder="Total Clientes Atendidos" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Total_Clientes_Atendidos" type="number" placeholder="Total Clientes Atendidos" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.promedio_clientes_x_dia" type="number" placeholder="Promedio Clientes por Día" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Promedio_Clientes_X_Dia" type="number" placeholder="Promedio Clientes por Día" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.capacidad_maxima" type="number" placeholder="Capacidad Máxima" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Capacidad_Maxima" type="number" placeholder="Capacidad Máxima" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.total_empleados" type="number" placeholder="Total Empleados" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Total_Empleados" type="number" placeholder="Total Empleados" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
-            <input v-model="form.horario_disponibilidad" type="text" placeholder="Horarios de Disponibilidad" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Horario_Disponibilidad" type="text" placeholder="Horarios de Disponibilidad" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
             
-            <select v-model="form.estatus" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <select v-model="form.Estatus" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required>
-              <option value="Activo">Activo</option>
-              <option value="Inactivo">Inactivo</option>
+              <option value="true">Activo</option>
+              <option value="false">Inactivo</option>
             </select>
   
-            <input v-model="form.fecha_registro" type="date" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            <input v-model="form.Fecha_Registro" type="date" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             required/>
           </div>
   
@@ -94,61 +94,59 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        form: {
-          nombre: '',
-          direccion: '',
-          responsable_id: '',
-          total_clientes_atendidos: '',
-          promedio_clientes_x_dia: '',
-          capacidad_maxima: '',
-          total_empleados: '',
-          horario_disponibilidad: '',
-          estatus: 'Activo',
-          fecha_registro: ''
-        },
-        cargando: false,
-        exito: false
-      };
-    },
-    methods: {
-      async submitForm() {
-        try {
-          this.cargando = true;
-          const response = await fetch('http://localhost:5000/sucursales', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.form)
-          });
-  
-          if (response.ok) {
-            this.cargando = false;
-            this.exito = true;
-  
-            setTimeout(() => {
-              this.exito = false;
-              this.$router.push({ name: 'sucursal' });
-            }, 1500);
-          } else {
-            alert('Error al agregar sucursal');
-          }
-        } catch (error) {
-          console.error('Error en el formulario:', error);
-          this.cargando = false;
-          alert('Ocurrió un error');
-        }
+<script>
+import api from '@/api/api.js';
+
+export default {
+  data() {
+    return {
+      form: {
+        Nombre: '',
+        Direccion: '',
+        Responsable_Id: '',
+        Total_Clientes_Atendidos: '',
+        Promedio_Clientes_X_Dia: '',
+        Capacidad_Maxima: '',
+        Total_Empleados: '',
+        Horario_Disponibilidad: '',
+        Estatus: true,
+        Fecha_Registro: new Date().toISOString(),
+        Fecha_Actualizacion: new Date().toISOString()
       },
-      goBack() {
-        this.$router.push({ name: 'sucursal' });
+      cargando: false,
+      exito: false
+    };
+  },
+  methods: {
+    async submitForm() {
+      try {
+        this.cargando = true;
+
+        // Enviar datos a la API
+        const response = await api.post('/sucursales/', this.form);
+
+        if (response.status === 201 || response.status === 200) {
+          this.exito = true;
+          setTimeout(() => {
+            this.$router.push({ name: 'sucursal' });
+          }, 1500);
+        } else {
+          alert('Error al agregar sucursal');
+        }
+      } catch (error) {
+        console.error('Error al conectar con la API:', error);
+        alert('Ocurrió un error al guardar la sucursal.');
+      } finally {
+        this.cargando = false;
       }
+    },
+    goBack() {
+      this.$router.push({ name: 'sucursal' });
     }
-  };
-  </script>
+  }
+};
+</script>
+
   
   <style scoped>  
   @keyframes fade-in {
