@@ -33,6 +33,7 @@
           <table class="table-auto w-full mt-4 bg-white text-black">
             <thead>
               <tr class="bg-red-600 text-white">
+                <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Nombre</th>
                 <th class="px-4 py-2">Dirección</th>
                 <th class="px-4 py-2">Responsable ID</th>
@@ -52,19 +53,20 @@
                 :key="sucursal.id"
                 class="border-b border-gray-300"
               >
-                <td class="px-4 py-2">{{ sucursal.nombre }}</td>
-                <td class="px-4 py-2">{{ sucursal.direccion }}</td>
-                <td class="px-4 py-2">{{ sucursal.responsable_id }}</td>
-                <td class="px-4 py-2">{{ sucursal.total_clientes_atendidos }}</td>
-                <td class="px-4 py-2">{{ sucursal.promedio_clientes_x_dia }}</td>
-                <td class="px-4 py-2">{{ sucursal.capacidad_maxima }}</td>
-                <td class="px-4 py-2">{{ sucursal.total_empleados }}</td>
-                <td class="px-4 py-2">{{ sucursal.horario_disponibilidad }}</td>
-                <td class="px-4 py-2">{{ sucursal.estatus }}</td>
-                <td class="px-4 py-2">{{ sucursal.fecha_registro }}</td>
+                <td class="px-4 py-2">{{ sucursal.Id }}</td>
+                <td class="px-4 py-2">{{ sucursal.Nombre }}</td>
+                <td class="px-4 py-2">{{ sucursal.Direccion }}</td>
+                <td class="px-4 py-2">{{ sucursal.Responsable_id }}</td>
+                <td class="px-4 py-2">{{ sucursal.Total_Clientes_Atendidos }}</td>
+                <td class="px-4 py-2">{{ sucursal.Promedio_Clientes_X_Dia }}</td>
+                <td class="px-4 py-2">{{ sucursal.Capacidad_Maxima }}</td>
+                <td class="px-4 py-2">{{ sucursal.Total_Empleados }}</td>
+                <td class="px-4 py-2">{{ sucursal.Horario_Disponibilidad }}</td>
+                <td class="px-4 py-2">{{ sucursal.Estatus }}</td>
+                <td class="px-4 py-2">{{ sucursal.Fecha_Registro }}</td>
                 <td class="px-4 py-2 flex space-x-2">
                   <button
-                    @click="editSucursal(sucursal.id)"
+                    @click="editSucursal(sucursal.Id)"
                     class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300"
                   >
                     Editar
@@ -85,6 +87,7 @@
   </template>
   
   <script>
+  import api from '@/api/api.js'; // Importamos la instancia de la API
   export default {
     data() {
       return {
@@ -109,19 +112,16 @@
     methods: {
       async fetchSucursalData() {
         try {
-          const response = await fetch('http://localhost:5000/sucursales');
-          const data = await response.json();
-          this.sucursales = data;
+          const response = await api.get('/sucursales/');
+          this.sucursales = response.data;
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       },
       async deleteSucursal(id) {
         try {
-          const response = await fetch(`http://localhost:5000/sucursales/${id}`, {
-            method: 'DELETE'
-          });
-          if (response.ok) {
+          const response = await api.delete(`/sucursal/${id}`);
+          if (response.status === 200) {
             this.fetchSucursalData();
           }
         } catch (error) {

@@ -19,6 +19,12 @@ import addInstalaciones from '@/components/forms/addInstalaciones.vue'
 import addProducto from '@/components/forms/addProducto.vue'
 import addUsuario from '@/components/forms/addUsuario.vue'
 
+import editEquipo from '@/components/forms/editEquipo.vue'
+import editSucursal from '@/components/forms/editSucursal.vue'
+import editMantenimiento from '@/components/forms/editMantenimiento.vue'
+import editInstalaciones from '@/components/forms/editInstalaciones.vue'
+import editProducto from '@/components/forms/editProducto.vue'
+import editUsuario from '@/components/forms/editUsuario.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -95,14 +101,14 @@ const router = createRouter({
     component: UsuariosView  
 },
 {
-  path: '/Menu/equipamiento/add',  // Ruta específica para agregar
-  name: 'addEquipo',               // Nombre de la ruta para redirigir al agregar
-  component: addEquipo,            // Usamos el mismo componente para agregar o editar
+  path: '/Menu/equipamiento/add',  
+  name: 'addEquipo',               
+  component: addEquipo,       
 },
 {
-  path: '/Menu/equipamiento/edit/:id',  // Ruta para editar, 'id' es obligatorio
-  name: 'editEquipo',                   // Nombre de la ruta para redirigir al editar
-  component: addEquipo,                 // Usamos el mismo componente para agregar o editar
+  path: '/Menu/equipamiento/edit/:id',  
+  name: 'editEquipo',                   
+  component: addEquipo,                
 },
   { path: '/agregar-sucursal',
     name: 'addSucursal',
@@ -123,6 +129,42 @@ const router = createRouter({
   { path: '/agregar-usuario',
     name: 'addUsuario',
     component: addUsuario
+  },
+  {
+    path: '/editar-equipo/:id',  
+    name: 'editEquipo',
+    component: editEquipo,  
+    props: true,
+  },
+  {
+    path: '/editar-sucursal/:id',  
+    name: 'editSucursal',
+    component: editSucursal,  
+    props: true,
+  },
+  {
+    path: '/editar-mantenimiento/:id',  
+    name: 'editMantenimiento',
+    component: editMantenimiento,  
+    props: true,
+  },
+  {
+    path: '/editar-instalacion/:id',  
+    name: 'editInstalaciones',
+    component: editInstalaciones,  
+    props: true,
+  },
+  {
+    path: '/editar-producto/:id',  
+    name: 'editProducto',
+    component: editProducto,  
+    props: true,
+  },
+  {
+    path: '/editar-usuario/:id', 
+    name: 'editUsuario',
+    component: editUsuario,  
+    props: true,
   },
   ]
 })

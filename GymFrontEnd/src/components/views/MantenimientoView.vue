@@ -31,7 +31,9 @@
         <!-- Tabla con fondo blanco -->
         <table class="table-auto w-full mt-4 bg-white text-black">
           <thead>
-            <tr class="bg-red-600 text-white">
+              <tr class="bg-red-600 text-white">
+              <th class="px-4 py-2">ID</th>
+              <th class="px-4 py-2">ID Equipamiento</th>
               <th class="px-4 py-2">Descripción</th>
               <th class="px-4 py-2">Responsable</th>
               <th class="px-4 py-2">Costo</th>
@@ -46,6 +48,8 @@
               :key="mantenimiento.id"
               class="border-b border-gray-300"
             >
+              <td class="px-4 py-2">{{ mantenimiento.id }}></td>
+              <td class="px-4 py-2">{{ mantenimiento.id_equipamiento }}></td>
               <td class="px-4 py-2">{{ mantenimiento.descripcion }}</td>
               <td class="px-4 py-2">{{ mantenimiento.responsable }}</td>
               <td class="px-4 py-2">{{ mantenimiento.costo }}</td>

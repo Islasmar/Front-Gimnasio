@@ -45,7 +45,7 @@
           type="email"
           id="email"
           v-model="correo"
-          class="w-full border-gray-300 bg-white/20 text-white rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+          class="w-full border-gray-300 bg-white/20 text-black rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
         />
   
         <label for="password" class="block text-white mt-4 mb-2">Contraseña</label>
@@ -53,7 +53,7 @@
           type="password"
           id="password"
           v-model="contrasena"
-          class="w-full border-gray-300 bg-white/20 text-white rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+          class="w-full border-gray-300 bg-white/20 text-black rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
         />
   
         <button

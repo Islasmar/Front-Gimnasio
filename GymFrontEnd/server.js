@@ -1,7 +1,6 @@
 import express from 'express'; 
 import mysql from 'mysql2';
 import cors from 'cors';
-import AddEquipo from '/src/components/forms/AddEquipo.vue';
 
 
 const app = express();
@@ -51,7 +50,7 @@ app.post("/login", (req, res) => {
 
 // Ruta para obtener todos los equipos (ya existente)
 app.get('/equipos', (req, res) => {
-  const query = 'SELECT nombre, marca, modelo, fotografia, estatus, total_existencias, fecha_registro FROM tbb_equipamientos';
+  const query = 'SELECT id, nombre, marca, modelo, fotografia, estatus, total_existencias, fecha_registro FROM tbb_equipamientos';
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error al obtener equipos:', err);
@@ -61,6 +60,7 @@ app.get('/equipos', (req, res) => {
     }
   });
 });
+
 
 
 // Ruta para editar un equipo (ya existente)
@@ -97,8 +97,7 @@ app.delete('/equipos/:id', (req, res) => {
 
 // Nueva ruta para obtener todas las sucursales
 app.get('/sucursales', (req, res) => {
-    const query = `SELECT 
-        nombre, direccion, responsable_id, total_clientes_atendidos, promedio_clientes_x_dia, 
+    const query = `SELECT nombre, direccion, responsable_id, total_clientes_atendidos, promedio_clientes_x_dia, 
         capacidad_maxima, total_empleados, horario_disponibilidad, estatus, fecha_registro
       FROM tbc_sucursales`;
     db.query(query, (err, results) => {
@@ -113,7 +112,7 @@ app.get('/sucursales', (req, res) => {
 
   // Ruta para obtener todos los mantenimientos
 app.get('/mantenimiento', (req, res) => {
-    const query = 'SELECT descripcion, responsable, costo, estatus, fecha_mantenimiento FROM tbb_mantenimiento';
+    const query = 'SELECT id, id_equipamiento, descripcion, responsable, costo, estatus, fecha_mantenimiento FROM tbb_mantenimiento';
     db.query(query, (err, results) => {
       if (err) {
         console.error('Error al obtener mantenimientos:', err);

@@ -32,6 +32,7 @@
       <table class="table-auto w-full mt-4 bg-white text-black">
         <thead>
           <tr class="bg-red-600 text-white">
+            <th class="px-4 py-2">ID</th>
             <th class="px-4 py-2">Nombre</th>
             <th class="px-4 py-2">Marca</th>
             <th class="px-4 py-2">Modelo</th>
@@ -48,13 +49,14 @@
             :key="equipo.Id"
             class="border-b border-gray-300"
           >
+            <td class="px-4 py-2">{{ equipo.Id }}</td>
             <td class="px-4 py-2">{{ equipo.Nombre }}</td>
             <td class="px-4 py-2">{{ equipo.Marca }}</td>
             <td class="px-4 py-2">{{ equipo.Modelo }}</td>
             <td class="px-4 py-2">
               <img :src="equipo.Fotografia" alt="Fotografía" class="w-16 h-16 rounded-md shadow-md" />
             </td>
-            <td class="px-4 py-2">{{ equipo.Estatus ? 'Activo' : 'Inactivo' }}</td>
+            <td class="px-4 py-2 text-black">{{ equipo.Estatus ? 'Activo' : 'Inactivo' }}</td>
             <td class="px-4 py-2">{{ equipo.Total_Existencias }}</td>
             <td class="px-4 py-2">{{ formatDate(equipo.Fecha_Registro) }}</td>
             <td class="px-4 py-2 flex space-x-2">
@@ -107,7 +109,7 @@ export default {
   methods: {
     async fetchEquipos() {
       try {
-        const response = await api.get('/equipamiento/'); // Usamos la instancia de api
+        const response = await api.get('/equipamiento/');
         this.equipos = response.data;
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -124,7 +126,6 @@ export default {
       }
     },
     editEquipo(id) {
-      // Redirigir a un formulario de edición (puedes usar Vue Router aquí)
       this.$router.push({ name: 'editEquipo', params: { id } });
     },
     redirectToAddForm() {
