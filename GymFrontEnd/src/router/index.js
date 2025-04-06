@@ -105,11 +105,6 @@ const router = createRouter({
   name: 'addEquipo',               
   component: addEquipo,       
 },
-{
-  path: '/Menu/equipamiento/edit/:id',  
-  name: 'editEquipo',                   
-  component: addEquipo,                
-},
   { path: '/agregar-sucursal',
     name: 'addSucursal',
     component: addSucursal
@@ -131,9 +126,9 @@ const router = createRouter({
     component: addUsuario
   },
   {
-    path: '/editar-equipo/:id',  
+    path: '/editar-equipo/:id',
     name: 'editEquipo',
-    component: editEquipo,  
+    component: editEquipo,
     props: true,
   },
   {

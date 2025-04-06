@@ -169,7 +169,7 @@
         <h2 class="text-xl font-bold">{{ card.title }}</h2>
         <p class="text-sm text-gray-700">{{ card.description }}</p>
         <div class="flex gap-4 mt-3 justify-center text-sm">
-         <router-link :to="'/home/equipamiento'">
+         <router-link :to="'/Menu/equipamiento'">
           <button v-if="card.button1" :class="card.button1.class">{{ card.button1.text }}</button>
          </router-link>
           <button v-if="card.button2" :class="card.button2.class">{{ card.button2.text }}</button>
