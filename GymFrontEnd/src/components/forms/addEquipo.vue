@@ -11,21 +11,21 @@
         <div
             class="relative z-10 bg-white rounded-2xl shadow-2xl flex flex-col lg:flex-row overflow-hidden w-full max-w-5xl animate-fade-in">
             <!-- Formulario -->
-            <form @submit.prevent="agregarEquipo" class="w-full lg:w-1/2 p-8 space-y-5 text-black">
+            <form @submit.prevent="submitForm" class="w-full lg:w-1/2 p-8 space-y-5 text-black">
                 <h2 class="text-3xl font-bold text-center text-red-600 flex items-center justify-center gap-2">
                     <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    Agregar Equipo
+                    {{ equipoId ? 'Editar' : 'Agregar' }} Equipo
                 </h2>
 
-                <input v-model="equipo.nombre" type="text" placeholder="Nombre"
+                <input v-model="equipo.Nombre" type="text" placeholder="Nombre"
                     class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                     required />
-                <input v-model="equipo.marca" type="text" placeholder="Marca"
+                <input v-model="equipo.Marca" type="text" placeholder="Marca"
                     class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                     required />
-                <input v-model="equipo.modelo" type="text" placeholder="Modelo"
+                <input v-model="equipo.Modelo" type="text" placeholder="Modelo"
                     class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                     required />
 
@@ -35,21 +35,21 @@
                     <img :src="previewImage" alt="Vista previa" class="w-32 h-32 object-cover rounded shadow-md" />
                 </div>
 
-                <input v-model="equipo.estatus" type="text" placeholder="Estatus"
-                    class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
-                    required />
-                <input v-model.number="equipo.total_existencias" type="number" placeholder="Existencias" min="0"
+                <label class="block">Estatus:</label>
+                <input v-model="equipo.Estatus" type="checkbox" class="p-2 border border-gray-300 rounded" />
+
+                <input v-model.number="equipo.Total_Existencias" type="number" placeholder="Existencias" min="0"
                     class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                     required />
 
-                    <div class="flex flex-col md:flex-row gap-2 justify-center mt-4">
+                <div class="flex flex-col md:flex-row gap-2 justify-center mt-4">
                     <!-- Botón Guardar -->
                     <button type="submit"
                         class="flex-1 bg-red-700 hover:bg-red-800 text-white font-medium text-sm py-2 rounded transition-all duration-300 flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
-                        Guardar Equipo
+                        {{ equipoId ? 'Actualizar' : 'Agregar' }} Equipo
                     </button>
 
                     <!-- Botón Volver -->
@@ -63,7 +63,6 @@
                         Volver al inicio
                     </button>
                 </div>
-
 
                 <!-- Barra de carga -->
                 <transition name="fade">
@@ -93,61 +92,95 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api/api.js'; // Asegúrate de importar la instancia de Axios
 
 export default {
     data() {
         return {
+            equipoId: this.$route.params.id,  // Capturamos el id de la URL para editar
             equipo: {
-                nombre: '',
-                marca: '',
-                modelo: '',
-                fotografia: '',
-                estatus: '',
-                total_existencias: 0
+                Nombre: '',
+                Marca: '',
+                Modelo: '',
+                Fotografia: '',
+                Estatus: true,  // Por defecto lo dejamos como 'true'
+                Total_Existencias: 0,
+                Fecha_Registro: '',
+                Fecha_Actualizacion: ''
             },
             previewImage: null,
             exito: false,
             cargando: false
         };
     },
+    mounted() {
+        if (this.equipoId) {
+            this.fetchEquipo(); // Si tenemos un id, cargamos los datos del equipo
+        }
+    },
     methods: {
+        async fetchEquipo() {
+            try {
+                const response = await api.get(`/equipamiento/${this.equipoId}`);
+                this.equipo = response.data;
+                this.previewImage = this.equipo.Fotografia;
+            } catch (error) {
+                console.error('Error al cargar equipo:', error);
+            }
+        },
         handleImageUpload(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     this.previewImage = e.target.result;
-                    this.equipo.fotografia = e.target.result;
+                    this.equipo.Fotografia = e.target.result; // Guardamos la imagen como base64
                 };
                 reader.readAsDataURL(file);
             }
         },
-        async agregarEquipo() {
+        async submitForm() {
             try {
                 this.cargando = true;
-                const fecha = new Date().toISOString().split('T')[0];
-                const nuevoEquipo = { ...this.equipo, fecha_registro: fecha };
+                const fecha = new Date().toISOString();
 
-                // Simulación de guardado
+                const equipoData = {
+                    Nombre: this.equipo.Nombre,
+                    Marca: this.equipo.Marca,
+                    Modelo: this.equipo.Modelo,
+                    Fotografia: this.equipo.Fotografia,
+                    Estatus: this.equipo.Estatus,
+                    Total_Existencias: this.equipo.Total_Existencias,
+                    Fecha_Registro: this.equipoId ? this.equipo.Fecha_Registro : fecha,
+                    Fecha_Actualizacion: fecha
+                };
+
+                if (this.equipoId) {
+                    // Si es edición, actualizamos el equipo
+                    const response = await api.put(`/equipamiento/${this.equipoId}`, equipoData);
+                    console.log('Equipo actualizado:', response.data);
+                } else {
+                    // Si es creación, agregamos un nuevo equipo
+                    const response = await api.post('/equipamiento/', equipoData);
+                    console.log('Nuevo equipo creado:', response.data);
+                }
+
+                this.cargando = false;
+                this.exito = true;
+
                 setTimeout(() => {
-                    console.log('Equipo guardado (simulado):', nuevoEquipo);
-                    this.cargando = false;
-                    this.exito = true;
-
-                    setTimeout(() => {
-                        this.exito = false;
-                        this.$router.push('/');
-                    }, 1500);
-                }, 2000);
+                    this.exito = false;
+                    this.$router.push('/Menu/equipamiento'); // Volver al listado
+                }, 1500);
             } catch (error) {
-                console.error('Error al agregar equipo:', error);
+                console.error('Error al guardar equipo:', error);
                 this.cargando = false;
             }
         }
     }
 };
 </script>
+
 
 <style scoped>
 @keyframes fade-in {

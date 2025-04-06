@@ -94,10 +94,16 @@ const router = createRouter({
   { path: '/Menu/usuarios', 
     component: UsuariosView  
 },
-  { path: '/agregar-equipo',
-    name: 'addEquipo',
-    component: addEquipo
-  },
+{
+  path: '/Menu/equipamiento/add',  // Ruta específica para agregar
+  name: 'addEquipo',               // Nombre de la ruta para redirigir al agregar
+  component: addEquipo,            // Usamos el mismo componente para agregar o editar
+},
+{
+  path: '/Menu/equipamiento/edit/:id',  // Ruta para editar, 'id' es obligatorio
+  name: 'editEquipo',                   // Nombre de la ruta para redirigir al editar
+  component: addEquipo,                 // Usamos el mismo componente para agregar o editar
+},
   { path: '/agregar-sucursal',
     name: 'addSucursal',
     component: addSucursal
