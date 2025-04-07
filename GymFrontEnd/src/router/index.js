@@ -150,7 +150,7 @@ const router = createRouter({
     props: true,
   },
   {
-    path: '/editar-producto/:id',  
+    path: '/editar-producto/:cod_barras',  
     name: 'editProducto',
     component: editProducto,  
     props: true,
