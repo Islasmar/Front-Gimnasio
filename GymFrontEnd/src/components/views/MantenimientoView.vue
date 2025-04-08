@@ -1,10 +1,10 @@
 <template>
   <div class="bg-black min-h-screen">
     <!-- Navbar -->
-    <nav class="bg-black text-white p-4">
-      <ul class="flex justify-start space-x-8">
+    <nav class="bg-black text-white p-4 fixed top-0 right-0 w-full shadow-lg">
+      <ul class="flex justify-end space-x-8">
         <li>
-          <a href="#" class="text-white">Inicio</a>
+          <a href="/Menu" class="text-white hover:text-gray-300 font-semibold text-lg">Volver a inicio</a>
         </li>
       </ul>
     </nav>
@@ -14,16 +14,9 @@
 
       <!-- Barra de búsqueda -->
       <div class="flex items-center mb-4">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Buscar"
-          class="p-2 text-black rounded-l-md"
-        />
-        <button
-          @click="redirectToAddForm"
-          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 ml-2 rounded-md transition duration-300"
-        >
+        <input v-model="searchQuery" type="text" placeholder="Buscar" class="p-2 text-black rounded-l-md" />
+        <button @click="redirectToAddForm"
+          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 ml-2 rounded-md transition duration-300">
           Agregar Mantenimiento
         </button>
       </div>
@@ -43,29 +36,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="mantenimiento in filteredMantenimientos"
-            :key="mantenimiento.Id"
-            class="border-b border-gray-300"
-          >
+          <tr v-for="mantenimiento in filteredMantenimientos" :key="mantenimiento.Id" class="border-b border-gray-300">
             <td class="px-4 py-2">{{ mantenimiento.Id }}</td>
-            <td class="px-4 py-2">{{ getEquipamientoName(mantenimiento.Id_equipamiento) }}</td> <!-- Equipamiento por nombre -->
+            <td class="px-4 py-2">{{ getEquipamientoName(mantenimiento.Id_equipamiento) }}</td>
+            <!-- Equipamiento por nombre -->
             <td class="px-4 py-2">{{ mantenimiento.Descripcion }}</td>
             <td class="px-4 py-2">{{ mantenimiento.Responsable }}</td>
             <td class="px-4 py-2">{{ mantenimiento.Costo }}</td>
             <td class="px-4 py-2">{{ mantenimiento.Estatus ? 'Activo' : 'Inactivo' }}</td> <!-- Formatear el estatus -->
             <td class="px-4 py-2">{{ formatFecha(mantenimiento.Fecha_mantenimiento) }}</td> <!-- Fecha formateada -->
             <td class="px-4 py-2 flex space-x-2">
-              <button
-                @click="editMantenimiento(mantenimiento.Id)"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300"
-              >
+              <button @click="editMantenimiento(mantenimiento.Id)"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300">
                 Editar
               </button>
-              <button
-                @click="deleteMantenimiento(mantenimiento.Id)"
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300"
-              >
+              <button @click="deleteMantenimiento(mantenimiento.Id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300">
                 Eliminar
               </button>
             </td>

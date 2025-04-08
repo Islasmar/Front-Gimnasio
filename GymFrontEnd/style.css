@@ -1,0 +1,103 @@
+/* Estilos Generales */
+body {
+    font-family: sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: rgb(199, 0, 0);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-image: url(https://conecta.tec.mx/sites/default/files/styles/crop_galeria_style/public/2023-10/caminadora-gym-profesional-campus-queretaro.jpg.webp?itok=3Epzfcmc);
+}
+
+/* Navbar */
+nav {
+    background: red;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Sección de Bienvenida */
+.hero {
+    background: url('gym-background.jpg') no-repeat center center/cover;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: red;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.btn:hover {
+    background: darkred;
+}
+
+/* Sección de Beneficios */
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 50px 20px;
+}
+
+.feature {
+    background: white;
+    color: black;
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+/* Página de Error */
+.error-page {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.error-container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons .btn {
+    margin: 10px;
+}

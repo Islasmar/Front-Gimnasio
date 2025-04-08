@@ -6,7 +6,7 @@
       <div class="nav-buttons">
         <button @click="scrollTo('inicio')">Inicio</button>
         <button @click="scrollTo('sobre-nosotros')">Sobre Nosotros</button>
-        <button @click="scrollTo('carrusel')">Contacto</button>
+        <button @click="scrollTo('')"><a href="/errorPage.html" class="btn">Contacto</a></button>
       </div>
     </nav>
 
@@ -30,63 +30,78 @@
     </section>
 
     <!-- SECCIÓN SOBRE NOSOTROS -->
-<section id="sobre-nosotros" class="sobre-nosotros-section">
-  <div class="sobre-nosotros-content">
-    <h2 class="sobre-nosotros-title">¿Por qué elegirnos?</h2>
-    <p class="sobre-nosotros-description">
-      En Gym Bulls, contamos con entrenadores expertos, equipos de última tecnología, y un ambiente de motivación continua para ayudarte a lograr tus objetivos.
-    </p>
-    <div class="values-container">
-      <div class="value-item" data-img="/src/assets/img/img1.jpg">
-        <h3>Entrenadores Expertos</h3>
-        <p>Contamos con un equipo altamente capacitado, listo para brindarte un entrenamiento personalizado.</p>
-      </div>
-      <div class="value-item" data-img="/src/assets/img/amigas.jpg">
-        <h3>Ambiente Motivador</h3>
-        <p>Te ofrecemos un espacio donde te sentirás motivado y apoyado por otros miembros y entrenadores.</p>
-      </div>
-      <div class="value-item" data-img="/src/assets/img/img3.jpg">
-        <h3>Resultados Reales</h3>
-        <p>Nos enfocamos en resultados tangibles, con programas de entrenamiento diseñados para maximizar tu rendimiento.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<template>
-  <div class="triangle-container">
-    <div class="triangle"></div>
-    <img src="/src/assets/img/gymbulls.jpg" alt="Logo" class="triangle-logo">
-  </div>
-</template>
-
-
-       <!-- CARRUSEL -->
-<div class="carousel-section" id="carrusel">
-  <div class="carousel-container">
-    <Carousel :autoplay="3000" :wrap-around="true">
-      <Slide v-for="(img, index) in images" :key="index">
-        <img :src="img" alt="Imagen de carrusel" class="carousel-image">
-      </Slide>
-    </Carousel>
-
-    <!-- Rectángulo con texto sobre el carrusel -->
-    <div class="carousel-overlay">
-      <div class="carousel-text">Bienvenido a Gym Bulls: Donde la Fuerza y la Disciplina Se Encuentran.🔥🏋️‍♂️</div><br>
-      <p class="inicio-description">
-        Transforma tu cuerpo, fortalece tu mente y supera tus límites con nosotros. Contamos con entrenadores expertos, equipos de última generación y un ambiente que te impulsa a dar siempre lo mejor. <br>¡Únete al equipo y conquista tus metas!"
+    <section id="sobre-nosotros" class="sobre-nosotros-section">
+      <div class="sobre-nosotros-content">
+        <h2 class="sobre-nosotros-title">¿Por qué elegirnos?</h2>
+        <p class="sobre-nosotros-description">
+          En Gym Bulls, contamos con entrenadores expertos, equipos de última tecnología, y un ambiente de motivación
+          continua para ayudarte a lograr tus objetivos.
         </p>
+        <div class="values-container">
+          <div class="value-item" data-img="/src/assets/img/img1.jpg">
+            <h3>Entrenadores Expertos</h3>
+            <p>Contamos con un equipo altamente capacitado, listo para brindarte un entrenamiento personalizado.</p>
+          </div>
+          <div class="value-item" data-img="/src/assets/img/amigas.jpg">
+            <h3>Ambiente Motivador</h3>
+            <p>Te ofrecemos un espacio donde te sentirás motivado y apoyado por otros miembros y entrenadores.</p>
+          </div>
+          <div class="value-item" data-img="/src/assets/img/img3.jpg">
+            <h3>Resultados Reales</h3>
+            <p>Nos enfocamos en resultados tangibles, con programas de entrenamiento diseñados para maximizar tu
+              rendimiento.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div>
+      <div class="triangle-container">
+        <div class="triangle"></div>
+        <img src="/src/assets/img/gymbulls-removebg-preview.png" alt="Logo" class="triangle-logo">
+      </div>
     </div>
 
-  </div>
-</div>
+
+    <!-- CARRUSEL -->
+    <div class="carousel-section" id="carrusel">
+      <div class="carousel-container">
+        <Carousel :autoplay="3000" :wrap-around="true">
+          <Slide v-for="(img, index) in images" :key="index">
+            <img :src="img" alt="Imagen de carrusel" class="carousel-image">
+          </Slide>
+        </Carousel>
+
+        <!-- Rectángulo con texto sobre el carrusel -->
+        <div class="carousel-overlay">
+          <div class="carousel-text">Bienvenido a Gym Bulls: Donde la Fuerza y la Disciplina Se Encuentran.🔥🏋️‍♂️
+          </div>
+          <br>
+          <p class="inicio-description">
+            Transforma tu cuerpo, fortalece tu mente y supera tus límites con nosotros. Contamos con entrenadores
+            expertos,
+            equipos de última generación y un ambiente que te impulsa a dar siempre lo mejor. <br>¡Únete al equipo y
+            conquista tus metas!"
+          </p>
+        </div>
+
+      </div>
+    </div>
 
     <!-- Renderiza las rutas dinámicas -->
     <router-view></router-view>
-     <!-- FOOTER -->
-     <footer class="footer">
-      <p>© 2024 Gym Bulls. Todos los derechos reservados.</p>
-    </footer>
+    <!-- FOOTER -->
+    <footer class="footer">
+    <div class="footer-content">
+      <h2 class="footer-title">Gym <span>Bulls</span></h2>
+      <p>© 2025 Gym Bulls. Todos los derechos reservados.</p>
+      <div class="social-icons">
+        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
   </div>
 </template>
 
@@ -94,6 +109,8 @@
 import { defineComponent, ref, onMounted } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 
 export default defineComponent({
   components: { Carousel, Slide },
@@ -143,6 +160,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 /* Navbar */
 .navbar {
   position: fixed;
@@ -310,13 +328,15 @@ export default defineComponent({
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.683); /* Fondo oscuro */
+  background: rgba(0, 0, 0, 0.683);
+  /* Fondo oscuro */
   color: white;
   padding: 20px 40px;
   font-size: 24px;
   font-weight: bold;
   border-radius: 10px;
-  z-index: 10; /* Asegura que el texto esté sobre el carrusel */
+  z-index: 10;
+  /* Asegura que el texto esté sobre el carrusel */
   text-align: center;
 }
 
@@ -324,7 +344,8 @@ export default defineComponent({
 /* Estilos para el triángulo y logo */
 .triangle-container {
   position: absolute;
-  right: 0px; /* Cambiado de right a left */
+  right: 0px;
+  /* Cambiado de right a left */
   top: 10%;
   display: flex;
   align-items: center;
@@ -334,20 +355,73 @@ export default defineComponent({
 .triangle {
   width: 0;
   height: 0;
-  border-top: 350px solid transparent; /* Aumentado tamaño */
-  border-bottom: 350px solid transparent;
-  border-right: 450px solid rgba(255, 255, 255, 0.3); /* Apunta en la dirección contraria */
+  border-top: 250px solid transparent;
+  /* Aumentado tamaño */
+  border-bottom: 250px solid transparent;
+  border-right: 350px solid rgba(255, 255, 255, 0.189);
+  /* Apunta en la dirección contraria */
 }
 
 .triangle-logo {
   position: absolute;
   top: 50%;
-  right: -50px; /* Ajustado para que se posicione mejor */
+  right: -50px;
+  /* Ajustado para que se posicione mejor */
   transform: translateY(-50%);
-  width: 450px; /* Más grande */
+  width: 450px;
+  /* Más grande */
   height: auto;
 }
 
 /* Footer */
-.footer { background: black; color: white; text-align: center; padding: 20px; }
+.footer {
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
+  animation: fadeInUp 1s ease;
+}
+
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer-title span {
+  color: red; /* Color de acento si quieres resaltar "Bulls" */
+}
+
+.social-icons {
+  margin-top: 15px;
+}
+
+.social-icons a {
+  color: white;
+  margin: 0 10px;
+  font-size: 20px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-icons a:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

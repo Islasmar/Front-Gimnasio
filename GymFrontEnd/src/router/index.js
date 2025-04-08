@@ -25,7 +25,8 @@ import editMantenimiento from '@/components/forms/editMantenimiento.vue'
 import editInstalaciones from '@/components/forms/editInstalaciones.vue'
 import editProducto from '@/components/forms/editProducto.vue'
 
-const router = createRouter({
+const router = createRouter(
+  {
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -47,6 +48,7 @@ const router = createRouter({
       path: '/Menu',
       name: 'Menu',
       component: Menu,
+      meta: { requiresAuth: true } ,
         children:[
           {
             path:'/dashboard', name:'dashboard', component: DashboardView
@@ -74,87 +76,116 @@ const router = createRouter({
     {
       path: '/Menu/dashboard',
       component: DashboardView,
+      meta: { requiresAuth: true } ,
     },
     {
       path: '/Menu/equipamiento',
       component: EquipamientoView,
+      meta: { requiresAuth: true } ,
     },
     {
       path: '/Menu/sucursales',
       component: SucursalView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/Menu/mantenimiento',
       component: MantenimientoView,
+      meta: { requiresAuth: true } ,
     },
 
     { path: '/Menu/instalaciones', 
-        component: InstalacionesView 
+        component: InstalacionesView,
+        meta: { requiresAuth: true },
     },
 
     { path: '/Menu/productos', 
-      component: ProductosView  
+      component: ProductosView,
+      meta: { requiresAuth: true }  
   },
 
   { path: '/Menu/usuarios', 
-    component: UsuariosView  
+    component: UsuariosView,
+    meta: { requiresAuth: true } , 
 },
 {
   path: '/Menu/equipamiento/add',  
   name: 'addEquipo',               
-  component: addEquipo,       
+  component: addEquipo, 
+  meta: { requiresAuth: true } ,      
 },
   { path: '/agregar-sucursal',
     name: 'addSucursal',
-    component: addSucursal
+    component: addSucursal,
+    meta: { requiresAuth: true } ,
   },
   { path: '/agregar-mantenimiento',
     name: 'addMantenimiento',
-    component: addMantenimiento
+    component: addMantenimiento,
+    meta: { requiresAuth: true } ,
   },
   { path: '/agregar-instalaciones',
     name: 'addInstalaciones',
-    component: addInstalaciones
+    component: addInstalaciones,
+    meta: { requiresAuth: true } ,
   },
   { path: '/agregar-productos',
     name: 'addProducto',
-    component: addProducto
+    component: addProducto,
+    meta: { requiresAuth: true } ,
   },
   { path: '/agregar-usuario',
     name: 'addUsuario',
-    component: addUsuario
+    component: addUsuario,
+    meta: { requiresAuth: true } ,
   },
   {
     path: '/editar-equipo/:id',
     name: 'editEquipo',
     component: editEquipo,
     props: true,
+    meta: { requiresAuth: true } ,
   },
   {
     path: '/editar-sucursal/:id',  
     name: 'editSucursal',
     component: editSucursal,  
     props: true,
+    meta: { requiresAuth: true } ,
   },
   {
     path: '/editar-mantenimiento/:id',  
     name: 'editMantenimiento',
     component: editMantenimiento,  
     props: true,
+    meta: { requiresAuth: true } ,
   },
   {
     path: '/editar-instalacion/:id',  
     name: 'editInstalaciones',
     component: editInstalaciones,  
     props: true,
+    meta: { requiresAuth: true } ,
   },
   {
     path: '/editar-producto/:cod_barras',  
     name: 'editProducto',
     component: editProducto,  
     props: true,
+    meta: { requiresAuth: true } ,
   }
   ]
-})
+}
+)
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+  const isAuthenticated = !!token;
 
+  // Verifica si la ruta requiere autenticación
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    return next('/home/login'); // Redirige si no está autenticado
+  }
+
+  next(); // Permite la navegación si está autenticado o la ruta no requiere autenticación
+});
 export default router

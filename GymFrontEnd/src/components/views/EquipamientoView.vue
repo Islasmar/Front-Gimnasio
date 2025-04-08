@@ -1,10 +1,10 @@
 <template>
   <div class="bg-black min-h-screen">
     <!-- Navbar -->
-    <nav class="bg-black text-white p-4">
-      <ul class="flex justify-start space-x-8">
+    <nav class="bg-black text-white p-4 fixed top-0 right-0 w-full shadow-lg">
+      <ul class="flex justify-end space-x-8">
         <li>
-          <a href="#" class="text-white">Inicio</a>
+          <a href="/Menu" class="text-white hover:text-gray-300 font-semibold text-lg">Volver a inicio</a>
         </li>
       </ul>
     </nav>
@@ -14,16 +14,9 @@
 
       <!-- Barra de búsqueda -->
       <div class="flex items-center mb-4">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Buscar"
-          class="p-2 text-black rounded-l-md"
-        />
-        <button
-          @click="redirectToAddForm"
-          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 ml-2 rounded-md transition duration-300"
-        >
+        <input v-model="searchQuery" type="text" placeholder="Buscar" class="p-2 text-black rounded-l-md" />
+        <button @click="redirectToAddForm"
+          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 ml-2 rounded-md transition duration-300">
           Agregar Equipo
         </button>
       </div>
@@ -44,11 +37,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="equipo in filteredEquipos"
-            :key="equipo.Id"
-            class="border-b border-gray-300"
-          >
+          <tr v-for="equipo in filteredEquipos" :key="equipo.Id" class="border-b border-gray-300">
             <td class="px-4 py-2">{{ equipo.Id }}</td>
             <td class="px-4 py-2">{{ equipo.Nombre }}</td>
             <td class="px-4 py-2">{{ equipo.Marca }}</td>
@@ -60,16 +49,12 @@
             <td class="px-4 py-2">{{ equipo.Total_Existencias }}</td>
             <td class="px-4 py-2">{{ formatDate(equipo.Fecha_Registro) }}</td>
             <td class="px-4 py-2 flex space-x-2">
-              <button
-                @click="editEquipo(equipo.Id)"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300"
-              >
+              <button @click="editEquipo(equipo.Id)"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300">
                 Editar
               </button>
-              <button
-                @click="deleteEquipo(equipo.Id)"
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300"
-              >
+              <button @click="deleteEquipo(equipo.Id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300">
                 Eliminar
               </button>
             </td>
@@ -96,7 +81,7 @@ export default {
       if (this.searchQuery === '') {
         return this.equipos;
       }
-      const query = this.searchQuery.toLowerCase(); 
+      const query = this.searchQuery.toLowerCase();
       return this.equipos.filter((equipo) => {
         return (
           equipo.Nombre.toLowerCase().includes(query) ||
@@ -117,7 +102,7 @@ export default {
     },
     async deleteEquipo(id) {
       try {
-        const response = await api.delete(`/equipamiento/${id}`); 
+        const response = await api.delete(`/equipamiento/${id}`);
         if (response.status === 200) {
           this.fetchEquipos(); // Refrescar los datos
         }
@@ -173,7 +158,8 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   text-align: left;
 }
 
@@ -213,7 +199,8 @@ button {
   margin-left: 8px;
 }
 
-button, input {
+button,
+input {
   height: 38px;
 }
 

@@ -1,10 +1,10 @@
 <template>
   <div class="bg-black min-h-screen">
     <!-- Navbar -->
-    <nav class="bg-black text-white p-4">
-      <ul class="flex justify-start space-x-8">
+    <nav class="bg-black text-white p-4 fixed top-0 right-0 w-full shadow-lg">
+      <ul class="flex justify-end space-x-8">
         <li>
-          <a href="#" class="text-white">Inicio</a>
+          <a href="/Menu" class="text-white hover:text-gray-300 font-semibold text-lg">Volver a inicio</a>
         </li>
       </ul>
     </nav>
@@ -14,16 +14,9 @@
 
       <!-- Barra de búsqueda -->
       <div class="flex items-center mb-4">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Buscar"
-          class="p-2 text-black rounded-l-md"
-        />
-        <button
-          @click="redirectToAddForm"
-          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 ml-2 rounded-md transition duration-300"
-        >
+        <input v-model="searchQuery" type="text" placeholder="Buscar" class="p-2 text-black rounded-l-md" />
+        <button @click="redirectToAddForm"
+          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 ml-2 rounded-md transition duration-300">
           Agregar Producto
         </button>
       </div>
@@ -46,11 +39,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="producto in filteredProductos"
-              :key="producto._id"
-              class="border-b border-gray-300"
-            >
+            <tr v-for="producto in filteredProductos" :key="producto._id" class="border-b border-gray-300">
               <td class="px-4 py-2">{{ producto.nombre }}</td>
               <td class="px-4 py-2">{{ producto.marca }}</td>
               <td class="px-4 py-2">{{ producto.cantidad }}</td>
@@ -63,16 +52,12 @@
               <td class="px-4 py-2">{{ producto.estatus ? 'Activo' : 'Inactivo' }}</td>
               <td class="px-4 py-2">{{ new Date(producto.fecha_registro).toLocaleString() }}</td>
               <td class="px-4 py-2 flex space-x-2">
-                <button
-                  @click="editProducto(producto.cod_barras)"
-                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300"
-                >
+                <button @click="editProducto(producto.cod_barras)"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300">
                   Editar
                 </button>
-                <button
-                  @click="deleteProducto(producto._id)"
-                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300"
-                >
+                <button @click="deleteProducto(producto._id)"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300">
                   Eliminar
                 </button>
               </td>
@@ -155,7 +140,8 @@ export default {
 /* Mantiene el fondo negro aún si la tabla se expande */
 table {
   width: 100%;
-  min-width: 1300px; /* Ajusta según sea necesario */
+  min-width: 1300px;
+  /* Ajusta según sea necesario */
 }
 
 img {
