@@ -58,12 +58,6 @@
                 <td class="px-4 py-2">{{ usuario.Fecha_Registro }}</td>
                 <td class="px-4 py-2 flex space-x-2">
                   <button
-                    @click="editUsuario(usuario.ID)"
-                    class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md"
-                  >
-                    Editar
-                  </button>
-                  <button
                     @click="deleteUsuario(usuario.ID)"
                     class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
                   >
@@ -126,31 +120,7 @@
       },
       redirectToAddForm() {
         this.$router.push({ name: "addUsuario" });
-      },
-      async addUsuario(usuario) {
-      try {
-        const response = await api.post('/users/', usuario);
-        if (response.status === 201) {
-          this.fetchEquipos(); 
-        }
-      } catch (error) {
-        console.error('Error adding user:', error);
       }
-    },
-    async updateUsuario(ID, usuario) {
-      try {
-        const response = await api.put(`/users/${ID}`, equipo); 
-        if (response.status === 200) {
-          this.fetchEquipos(); 
-        }
-      } catch (error) {
-        console.error('Error updating user:', error);
-      }
-    },
-    formatDate(date) {
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-      return new Date(date).toLocaleDateString('es-ES', options);
-    }
     },
     mounted() {
       this.fetchUsuarios();

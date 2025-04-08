@@ -24,7 +24,6 @@ import editSucursal from '@/components/forms/editSucursal.vue'
 import editMantenimiento from '@/components/forms/editMantenimiento.vue'
 import editInstalaciones from '@/components/forms/editInstalaciones.vue'
 import editProducto from '@/components/forms/editProducto.vue'
-import editUsuario from '@/components/forms/editUsuario.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -154,13 +153,7 @@ const router = createRouter({
     name: 'editProducto',
     component: editProducto,  
     props: true,
-  },
-  {
-    path: '/editar-usuario/:ID', 
-    name: 'editUsuario',
-    component: editUsuario,  
-    props: true,
-  },
+  }
   ]
 })
 
