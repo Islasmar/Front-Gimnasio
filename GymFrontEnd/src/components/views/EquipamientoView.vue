@@ -96,7 +96,7 @@ export default {
       if (this.searchQuery === '') {
         return this.equipos;
       }
-      const query = this.searchQuery.toLowerCase();  // Normaliza la búsqueda
+      const query = this.searchQuery.toLowerCase(); 
       return this.equipos.filter((equipo) => {
         return (
           equipo.Nombre.toLowerCase().includes(query) ||
@@ -117,7 +117,7 @@ export default {
     },
     async deleteEquipo(id) {
       try {
-        const response = await api.delete(`/equipamiento/${id}`); // Usamos la instancia de api
+        const response = await api.delete(`/equipamiento/${id}`); 
         if (response.status === 200) {
           this.fetchEquipos(); // Refrescar los datos
         }

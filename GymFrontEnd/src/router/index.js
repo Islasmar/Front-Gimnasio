@@ -156,7 +156,7 @@ const router = createRouter({
     props: true,
   },
   {
-    path: '/editar-usuario/:id', 
+    path: '/editar-usuario/:ID', 
     name: 'editUsuario',
     component: editUsuario,  
     props: true,

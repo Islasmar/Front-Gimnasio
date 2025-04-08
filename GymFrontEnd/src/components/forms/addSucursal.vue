@@ -56,7 +56,7 @@
               Guardar Sucursal
             </button>
   
-            <button type="button" @click="goBack"
+            <button type="button" @click="$router.push('/Menu/sucursales')"
               class="flex-1 bg-gray-800 hover:bg-gray-900 text-white text-sm font-medium py-2 rounded flex items-center justify-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

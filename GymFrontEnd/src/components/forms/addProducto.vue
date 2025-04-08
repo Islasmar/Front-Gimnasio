@@ -16,6 +16,8 @@
 
         <input v-model="producto.marca" type="text" placeholder="Marca"
                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500" required />
+        
+        <input v-model="producto.cantidad" type="text" placeholder="cantidad" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500" required />
 
         <input v-model="producto.cod_barras" type="text" placeholder="Código de Barras"
                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500" required />
@@ -41,7 +43,8 @@
         </select>
 
         <div class="flex flex-col md:flex-row gap-2 justify-center mt-4">
-          <button type="submit" class="flex-1 bg-red-700 hover:bg-red-800 text-white font-medium text-sm py-2 rounded transition-all duration-300 flex items-center justify-center gap-2">
+          <button type="submit" 
+          class="flex-1 bg-red-700 hover:bg-red-800 text-white font-medium text-sm py-2 rounded transition-all duration-300 flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
@@ -74,6 +77,7 @@ export default {
       producto: {
         nombre: '',
         marca: '',
+        cantidad: '',
         cod_barras: '',
         descripcion: '',
         presentacion: '',

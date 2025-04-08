@@ -14,6 +14,7 @@
           <!-- Campos del formulario -->
           <input v-model="instalacion.Descripcion" type="text" placeholder="Descripción"
             class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500" required />
+            
           <input v-model="instalacion.Tipo" type="text" placeholder="Tipo"
             class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500" required />
           <input v-model="instalacion.Observaciones" type="text" placeholder="Observaciones"

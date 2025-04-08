@@ -46,25 +46,25 @@
             <tbody>
               <tr
                 v-for="usuario in filteredUsuarios"
-                :key="usuario.id"
+                :key="usuario.ID"
                 class="border-b border-gray-300"
               >
-                <td class="px-4 py-2">{{ usuario.id }}</td>
-                <td class="px-4 py-2">{{ usuario.nombre_usuario }}</td>
-                <td class="px-4 py-2">{{ usuario.correo_electronico }}</td>
-                <td class="px-4 py-2">{{ usuario.contrasena }}</td>
-                <td class="px-4 py-2">{{ usuario.numero_telefonico_movil }}</td>
-                <td class="px-4 py-2">{{ usuario.estatus }}</td>
-                <td class="px-4 py-2">{{ usuario.fecha_registro }}</td>
+                <td class="px-4 py-2">{{ usuario.ID }}</td>
+                <td class="px-4 py-2">{{ usuario.Nombre_Usuario }}</td>
+                <td class="px-4 py-2">{{ usuario.Correo_Electronico }}</td>
+                <td class="px-4 py-2">{{ usuario.Contrasena }}</td>
+                <td class="px-4 py-2">{{ usuario.Numero_Telefonico_Movil }}</td>
+                <td class="px-4 py-2">{{ usuario.Estatus }}</td>
+                <td class="px-4 py-2">{{ usuario.Fecha_Registro }}</td>
                 <td class="px-4 py-2 flex space-x-2">
                   <button
-                    @click="editUsuario(usuario.id)"
+                    @click="editUsuario(usuario.ID)"
                     class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md"
                   >
                     Editar
                   </button>
                   <button
-                    @click="deleteUsuario(usuario.id)"
+                    @click="deleteUsuario(usuario.ID)"
                     class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
                   >
                     Eliminar
@@ -79,6 +79,7 @@
   </template>
   
   <script>
+  import api from '@/api/api.js';
   export default {
     data() {
       return {
@@ -88,12 +89,15 @@
     },
     computed: {
       filteredUsuarios() {
-        const query = this.searchQuery.toLowerCase();
-        return this.usuarios.filter((u) => {
+        if (this.searchQuery === '') {
+        return this.usuarios;
+      }
+      const query = this.searchQuery.toLowerCase();
+        return this.usuarios.filter((usuarios) => {
           return (
-            u.nombre_usuario.toLowerCase().includes(query) ||
-            u.correo_electronico.toLowerCase().includes(query) ||
-            u.numero_telefonico_movil.toLowerCase().includes(query)
+            usuarios.Nombre_Usuario.toLowerCase().includes(query) ||
+            usuarios.Correo_Electronico.toLowerCase().includes(query) ||
+            usuarios.Numero_Telefonico_Movil.toLowerCase().includes(query)
           );
         });
       }
@@ -101,31 +105,52 @@
     methods: {
       async fetchUsuarios() {
         try {
-          const response = await fetch("http://localhost:5000/usuarios");
-          const data = await response.json();
-          this.usuarios = data;
+          const response = await api.get('/users/');
+          this.usuarios = response.data;
         } catch (error) {
           console.error("Error al obtener los usuarios:", error);
         }
       },
-      async deleteUsuario(id) {
+      async deleteUsuario(ID) {
         try {
-          const res = await fetch(`http://localhost:5000/usuarios/${id}`, {
-            method: "DELETE"
-          });
-          if (res.ok) {
+          const response = await api.delete(`/users/${ID}`);
+          if (response.status === 200) {
             this.fetchUsuarios();
           }
         } catch (error) {
           console.error("Error al eliminar el usuario:", error);
         }
       },
-      editUsuario(id) {
-        this.$router.push({ name: "editUsuario", params: { id } });
+      editUsuario(ID) {
+        this.$router.push({ name: "editUsuario", params: { ID } });
       },
       redirectToAddForm() {
         this.$router.push({ name: "addUsuario" });
+      },
+      async addUsuario(usuario) {
+      try {
+        const response = await api.post('/users/', usuario);
+        if (response.status === 201) {
+          this.fetchEquipos(); 
+        }
+      } catch (error) {
+        console.error('Error adding user:', error);
       }
+    },
+    async updateUsuario(ID, usuario) {
+      try {
+        const response = await api.put(`/users/${ID}`, equipo); 
+        if (response.status === 200) {
+          this.fetchEquipos(); 
+        }
+      } catch (error) {
+        console.error('Error updating user:', error);
+      }
+    },
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      return new Date(date).toLocaleDateString('es-ES', options);
+    }
     },
     mounted() {
       this.fetchUsuarios();

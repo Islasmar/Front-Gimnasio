@@ -35,6 +35,7 @@
             <tr class="bg-red-600 text-white">
               <th class="px-4 py-2">Nombre</th>
               <th class="px-4 py-2">Marca</th>
+              <th class="px-4 py-2">Cantidad</th>
               <th class="px-4 py-2">Código de Barras</th>
               <th class="px-4 py-2">Descripción</th>
               <th class="px-4 py-2">Precio Actual</th>
@@ -52,6 +53,7 @@
             >
               <td class="px-4 py-2">{{ producto.nombre }}</td>
               <td class="px-4 py-2">{{ producto.marca }}</td>
+              <td class="px-4 py-2">{{ producto.cantidad }}</td>
               <td class="px-4 py-2">{{ producto.cod_barras }}</td>
               <td class="px-4 py-2">{{ producto.descripcion }}</td>
               <td class="px-4 py-2">${{ producto.precio_actual }}</td>
