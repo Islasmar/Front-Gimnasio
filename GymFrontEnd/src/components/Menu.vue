@@ -1,7 +1,7 @@
 <template>
   <div v-if="isAuthenticated">
     <aside id="sidebar-multi-level-sidebar" :class="{ 'translate-x-0': menuVisible, '-translate-x-full': !menuVisible }"
-      class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto transition-transform bg-black">
+      class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto transition-transform bg-white">
       <div class="px-3 py-4 overflow-y-auto">
         <ul class="space-y-2 font-medium text-white text-gray-100">
           <li>
@@ -194,57 +194,52 @@
         </div>
       </div>
 
-
-      <!-- Segunda fila -->
+      <!-- Tarjetas de la segunda fila -->
       <div class="grid grid-cols-3 gap-6 w-full max-w-6xl mt-6 relative z-10">
         <div v-for="card in secondRowCards" :key="card.title" class="card">
           <component :is="card.icon" class="text-4xl mb-2" />
           <h2 class="text-xl font-bold">{{ card.title }}</h2>
           <p class="text-sm text-gray-700">{{ card.description }}</p>
-          <div class="flex gap-4 mt-3 justify-center">
-            <router-link :to="'/Menu/mantenimiento'">
-              <button v-if="card.title === 'Equipos en Mantenimiento'" :class="card.button1.class">{{ card.button1.text }}</button>
-            </router-link>
+          <div class="flex gap-4 mt-3 justify-center text-sm">
             <router-link :to="'/Menu/instalaciones'">
-              <button v-if="card.title === 'Instalaciones'" :class="card.button4.class">{{ card.button4.text }}</button>
+              <button v-if="card.button4" :class="card.button4.class">{{ card.button4.text }}</button>
             </router-link>
-            <router-link :to="'/agregar-mantenimiento'">
-              <button v-if="card.button2" :class="card.button2.class">{{ card.button2.text }}</button>
-            </router-link>
-            
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="p-4 ml-64 h-[100vh] w-[86%]">
-      <router-view />
-    </div>
+      <!-- Título de gráficas -->
+      <h2 class="text-3xl font-bold text-white mt-12 mb-4 z-10">Estadísticas del Inventario</h2>
 
-    <!-- Botón de toggle para el menú con una imagen -->
-    <button @click="toggleMenu" :class="{ 'fixed top-5 left-5': !menuVisible, 'fixed top-5 right-5': menuVisible }"
-      class="text-white z-50 transition-all duration-300">
-      <img src="/src/assets/img/gymbulls-removebg-preview.png" alt="Toggle Menu" class="w-12 h-12" />
-    </button>
+      <!-- Gráficas -->
+      <div class="flex gap-4 w-full max-w-6xl mt-6 relative z-10 justify-center">
+        <div class="bg-white text-black p-4 rounded shadow w-[45%]">
+          <h2 class="text-xl font-bold mb-4">Productos Existentes</h2>
+          <apexchart type="bar" :options="productosChartOptions" :series="productosChartData" />
+        </div>
+        <div class="bg-white text-black p-4 rounded shadow w-[45%]">
+          <h2 class="text-xl font-bold mb-4">Precios de Productos</h2>
+          <apexchart type="pie" :options="preciosChartOptions" :series="preciosChartData" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router'; // Importa el router
-import Home from '../components/Home.vue';
-import Footer from './Footer.vue';
-import { Dumbbell, ClipboardList, Wrench, DollarSign, ShoppingCart, Milk, Landmark } from 'lucide-vue-next';
+import { useRouter } from 'vue-router';
+import VueApexCharts from 'vue3-apexcharts';
+import { Dumbbell, Wrench, Milk, Landmark } from 'lucide-vue-next';
 
 export default {
   components: {
-    Home,
-    Footer
+    apexchart: VueApexCharts,
   },
   setup() {
-    const router = useRouter(); // Inicializa el router
+    const router = useRouter();
     const menuVisible = ref(false);
-    const isAuthenticated = ref(false); // Para controlar si el usuario está autenticado
+    const isAuthenticated = ref(false);
 
     const toggleMenu = () => {
       menuVisible.value = !menuVisible.value;
@@ -253,85 +248,83 @@ export default {
     onMounted(() => {
       const token = localStorage.getItem('token');
       if (!token) {
-        router.push('/home/login'); // Redirige si no hay token
+        router.push('/home/login');
       } else {
         isAuthenticated.value = true;
       }
-
-      // Chatbot script
-      const script = document.createElement("script");
-      script.src = "https://www.chatbase.co/embed.min.js";
-      script.id = "rzHbaScVBj212v3mdZWZl";
-      script.domain = "www.chatbase.co";
-      document.body.appendChild(script);
-
-      script.onload = () => {
-        if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-          window.chatbase = (...params) => {
-            if (!window.chatbase.q) {
-              window.chatbase.q = [];
-            }
-            window.chatbase.q.push(params);
-          };
-          window.chatbase = new Proxy(window.chatbase, {
-            get(target, prop) {
-              if (prop === "q") return target.q;
-              return (...args) => target(prop, ...args);
-            }
-          });
-        }
-      };
     });
 
-    const logout = () => {
-      localStorage.removeItem('token');
-      router.push('/home/login');
-    };
+    const productosChartOptions = ref({
+      chart: {
+        type: 'bar',
+      },
+      xaxis: {
+        categories: ['Producto A', 'Producto B', 'Producto C'],
+      },
+    });
+
+    const productosChartData = ref([
+      {
+        name: 'Cantidad',
+        data: [30, 40, 50],
+      },
+    ]);
+
+    const preciosChartOptions = ref({
+      chart: {
+        type: 'pie',
+      },
+      labels: ['Producto A', 'Producto B', 'Producto C'],
+    });
+
+    const preciosChartData = ref([30, 40, 50]);
 
     return {
       menuVisible,
       toggleMenu,
-      logout,
       isAuthenticated,
+      productosChartOptions,
+      productosChartData,
+      preciosChartOptions,
+      preciosChartData,
       firstRowCards: [
         {
           title: 'Total de Equipos',
           description: 'Inventario completo de equipos.',
           icon: Dumbbell,
           button1: { text: 'Ver lista', class: 'btn-blue' },
-          button2: { text: 'Agregar', class: 'btn-red' }
+          button2: { text: 'Agregar', class: 'btn-red' },
         },
         {
           title: 'Equipos en Mantenimiento',
           description: 'Equipos fuera de servicio.',
           icon: Wrench,
           button1: { text: 'Ver lista', class: 'btn-blue' },
-          button2: { text: 'Agregar', class: 'btn-red' }
+          button2: { text: 'Agregar', class: 'btn-red' },
         },
         {
           title: 'Productos',
           description: 'Listado de productos.',
           icon: Milk,
-          button3: { text: 'Ver lista', class: 'btn-blue' }
+          button3: { text: 'Ver lista', class: 'btn-blue' },
         },
       ],
-        secondRowCards: [
+      secondRowCards: [
         {
           title: 'Instalaciones',
           description: 'Listado de instalaciones en el gimnasio.',
           icon: Landmark,
-          button4: { text: 'Ver lista', class: 'btn-blue' }
+          button4: { text: 'Ver lista', class: 'btn-blue' },
         },
-      ]
+      ],
     };
-  }
+  },
 };
 </script>
 
 <style>
 .card {
   background: rgba(255, 255, 255, 0.7);
-  /* Reducir opacidad de las cartas */
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -343,23 +336,13 @@ export default {
   box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Botón de plegar y desplegar */
-button {
-  background-color: #ffffff;
-  border-radius: 50%;
-  padding: 10px;
-  color: white;
-}
-
 .btn-blue {
   background-color: rgb(0, 0, 0);
-  /* Botón verde */
   color: white;
   padding: 12px;
   border-radius: 5px;
   font-size: 16px;
   width: 100%;
-  /* Botones del mismo tamaño */
   max-width: 200px;
   height: 45px;
   text-align: center;
@@ -369,13 +352,11 @@ button {
 
 .btn-red {
   background-color: red;
-  /* Botón rojo */
   color: white;
   padding: 12px;
   border-radius: 5px;
   font-size: 16px;
   width: 100%;
-  /* Botones del mismo tamaño */
   max-width: 200px;
   height: 45px;
   text-align: center;

@@ -1,11 +1,11 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
+import VueApexCharts from 'vue3-apexcharts';
+import App from './App.vue';
+import router from './router';
 
-import App from './App.vue'
-import router from './router'
+const app = createApp(App);
 
-console.log(router.getRoutes());
+app.use(router);
+app.component('apexchart', VueApexCharts); // Registra el componente globalmente
 
-const app = createApp(App)
-app.use(router)
-
-app.mount('#app')
+app.mount('#app');
